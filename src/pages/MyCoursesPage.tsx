@@ -14,6 +14,10 @@ export function MyCoursesPage() {
     deleteCourse,
     user
   } = useApp();
+
+  if (!user || !courses) {
+    return <div>Loading courses...</div>;
+  }
   const handleEdit = (id: string, data: {
     name: string;
     category: string;

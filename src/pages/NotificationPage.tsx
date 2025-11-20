@@ -10,6 +10,10 @@ export function NotificationPage() {
     markAsRead,
     user
   } = useApp();
+
+  if (!user || !notifications) {
+    return <div>Loading notifications...</div>;
+  }
   const handleNotificationClick = (id: string) => {
     markAsRead(id);
   };

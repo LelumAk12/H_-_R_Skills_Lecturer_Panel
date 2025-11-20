@@ -13,14 +13,19 @@ export function ProfilePage() {
     updateQualification,
     deleteQualification
   } = useApp();
-  const [profileImage, setProfileImage] = useState(user.image);
+
+  if (!user || !user.qualifications) {
+    return <div>Loading profile...</div>;
+  }
+
+  const [profileImage, setProfileImage] = useState(user.image || '');
   const [profileData, setProfileData] = useState({
-    name: user.name,
-    email: user.email,
-    address: user.address,
-    contact: user.contact,
-    university: user.university,
-    primaryCourse: user.primaryCourse
+    name: user.name || '',
+    email: user.email || '',
+    address: user.address || '',
+    contact: user.contact || '',
+    university: user.university || '',
+    primaryCourse: user.primaryCourse || ''
   });
   const [editingQualIndex, setEditingQualIndex] = useState<number | null>(null);
   const [qualificationForm, setQualificationForm] = useState({

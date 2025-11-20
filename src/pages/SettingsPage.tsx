@@ -12,6 +12,10 @@ export function SettingsPage() {
     theme,
     toggleTheme
   } = useApp();
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
   const [formData, setFormData] = useState({
     currentPassword: '',
     newPassword: '',

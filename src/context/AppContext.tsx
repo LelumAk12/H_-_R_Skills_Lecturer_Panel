@@ -116,33 +116,77 @@ export function AppProvider({
   children: React.ReactNode;
 }) {
   const [courses, setCourses] = useState<Course[]>(() => {
-    const saved = localStorage.getItem('courses');
-    return saved ? JSON.parse(saved) : initialCourses;
+    if (typeof window === 'undefined') return initialCourses;
+    try {
+      const saved = localStorage.getItem('courses');
+      return saved ? JSON.parse(saved) : initialCourses;
+    } catch {
+      return initialCourses;
+    }
   });
   const [notifications, setNotifications] = useState<Notification[]>(() => {
-    const saved = localStorage.getItem('notifications');
-    return saved ? JSON.parse(saved) : initialNotifications;
+    if (typeof window === 'undefined') return initialNotifications;
+    try {
+      const saved = localStorage.getItem('notifications');
+      return saved ? JSON.parse(saved) : initialNotifications;
+    } catch {
+      return initialNotifications;
+    }
   });
   const [user, setUser] = useState<User>(() => {
-    const saved = localStorage.getItem('user');
-    return saved ? JSON.parse(saved) : initialUser;
+    if (typeof window === 'undefined') return initialUser;
+    try {
+      const saved = localStorage.getItem('user');
+      return saved ? JSON.parse(saved) : initialUser;
+    } catch {
+      return initialUser;
+    }
   });
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    const saved = localStorage.getItem('theme');
-    return saved as 'light' | 'dark' || 'light';
+    if (typeof window === 'undefined') return 'light';
+    try {
+      const saved = localStorage.getItem('theme');
+      return (saved as 'light' | 'dark') || 'light';
+    } catch {
+      return 'light';
+    }
   });
   useEffect(() => {
-    localStorage.setItem('courses', JSON.stringify(courses));
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('courses', JSON.stringify(courses));
+      } catch {
+        // localStorage might be unavailable
+      }
+    }
   }, [courses]);
   useEffect(() => {
-    localStorage.setItem('notifications', JSON.stringify(notifications));
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('notifications', JSON.stringify(notifications));
+      } catch {
+        // localStorage might be unavailable
+      }
+    }
   }, [notifications]);
   useEffect(() => {
-    localStorage.setItem('user', JSON.stringify(user));
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('user', JSON.stringify(user));
+      } catch {
+        // localStorage might be unavailable
+      }
+    }
   }, [user]);
   useEffect(() => {
-    localStorage.setItem('theme', theme);
-    document.documentElement.setAttribute('data-theme', theme);
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('theme', theme);
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch {
+        // localStorage might be unavailable
+      }
+    }
   }, [theme]);
   const addCourse = (course: Omit<Course, 'id'>) => {
     const newCourse = {

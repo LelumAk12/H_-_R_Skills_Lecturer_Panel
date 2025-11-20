@@ -11,6 +11,10 @@ export function LiveModulePage() {
   const {
     user
   } = useApp();
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
   const [formData, setFormData] = useState({
     moduleName: '',
     moduleType: '',

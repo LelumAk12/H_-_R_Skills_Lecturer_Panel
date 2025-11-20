@@ -12,6 +12,10 @@ export function AddNewCoursePage() {
     user,
     addCourse
   } = useApp();
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
   const [formData, setFormData] = useState({
     category: '',
     name: '',
