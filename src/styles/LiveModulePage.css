@@ -1,0 +1,174 @@
+.live-module-page {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.live-module-main {
+  flex: 1;
+  margin-left: 280px;
+  display: flex;
+  flex-direction: column;
+}
+
+.live-module-content {
+  flex: 1;
+  padding: 96px 48px 48px;
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.live-module-header {
+  margin-bottom: 32px;
+}
+
+.live-module-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a2b4a;
+  margin: 0 0 8px 0;
+}
+
+.live-module-subtitle {
+  font-size: 15px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.live-module-section {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.live-module-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.live-module-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.live-module-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.live-module-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a2b4a;
+  margin-bottom: 8px;
+}
+
+.required {
+  color: #dc2626;
+  margin-left: 4px;
+}
+
+.live-module-input {
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #1a2b4a;
+  transition: border-color 0.2s;
+}
+
+.live-module-input:focus {
+  outline: none;
+  border-color: #1a2b4a;
+}
+
+.live-module-input::placeholder {
+  color: #9ca3af;
+}
+
+.live-module-input.error,
+.live-module-textarea.error {
+  border-color: #dc2626;
+}
+
+.live-module-input.error:focus,
+.live-module-textarea.error:focus {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.live-module-textarea {
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #1a2b4a;
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+
+.live-module-textarea:focus {
+  outline: none;
+  border-color: #1a2b4a;
+}
+
+.live-module-textarea::placeholder {
+  color: #9ca3af;
+}
+
+.live-module-textarea.error {
+  border-color: #dc2626;
+}
+
+.live-module-textarea.error:focus {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.live-module-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.live-module-btn {
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.live-module-btn.cancel {
+  background-color: #ffffff;
+  border: 2px solid #d4a017;
+  color: #d4a017;
+}
+
+.live-module-btn.cancel:hover {
+  background-color: #fffbf0;
+}
+
+.live-module-btn.schedule {
+  background-color: #1a2b4a;
+  border: 2px solid #1a2b4a;
+  color: #ffffff;
+}
+
+.live-module-btn.schedule:hover {
+  background-color: #0f1a2e;
+}
+
+.error-message {
+  color: #dc2626;
+  font-size: 13px;
+  margin-top: 4px;
+  display: block;
+}

@@ -1,0 +1,72 @@
+
+.qualification-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.qualification-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.qualification-table thead {
+  background-color: #f9fafb;
+}
+
+.qualification-table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.qualification-table td {
+  padding: 16px;
+  font-size: 14px;
+  color: #1a2b4a;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.qualification-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.qualification-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.qualification-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.qualification-action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.qualification-action-btn:hover {
+  background-color: #f3f4f6;
+}
+
+.qualification-action-btn.edit {
+  color: #1a2b4a;
+}
+
+.qualification-action-btn.delete {
+  color: #dc2626;
+}
+
+.qualification-action-icon {
+  width: 16px;
+  height: 16px;
+}
