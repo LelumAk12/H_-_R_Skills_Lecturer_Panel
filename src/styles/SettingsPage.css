@@ -1,20 +1,20 @@
 .settings-page {
   display: flex;
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background: var(--bg-primary);
 }
 
 .settings-main {
   flex: 1;
-  margin-left: var(--sidebar-width, 280px);
+  margin-left: 0;
   display: flex;
   flex-direction: column;
 }
 
 .settings-content {
   flex: 1;
-  padding: 96px 48px 48px;
-  max-width: 1200px;
+  padding: 24px 48px 48px;
+  max-width: 1100px;
   width: 100%;
   margin: 0 auto;
 }
@@ -37,7 +37,7 @@
 }
 
 .settings-section {
-  background-color: #ffffff;
+  background: var(--bg-secondary);
   border-radius: 12px;
   padding: 32px;
   margin-bottom: 24px;

@@ -6,16 +6,16 @@
 }
 
 .add-course-main {
-  flex: 1;
-  margin-left: var(--sidebar-width, 280px);
-  display: flex;
-  flex-direction: column;
-  transition: margin-left 0.3s ease;
+    flex: 1;
+    margin-left: 0;
+    display: flex;
+    flex-direction: column;
+    transition: margin-left 0.3s ease;
 }
 
 .add-course-content {
   flex: 1;
-  padding: 96px 48px 48px;
+  padding: 24px 48px 48px;
   max-width: 1400px;
   width: 100%;
   margin: 0 auto;

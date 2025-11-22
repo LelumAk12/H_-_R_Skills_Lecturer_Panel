@@ -40,9 +40,8 @@ export function CourseCard({
     setIsEditing(false);
   };
   const handleDelete = () => {
-    if (window.confirm('Are you sure you want to delete this course?')) {
-      onDelete(courseId);
-    }
+    // Delegate delete confirmation to parent (no window.confirm here)
+    onDelete(courseId);
   };
   return <div className="course-card-wrapper">
       <div className="course-card">

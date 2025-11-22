@@ -6,12 +6,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 48px;
-  position: fixed;
-  top: 0;
-  left: var(--sidebar-width, 280px);
-  right: 0;
-  z-index: 100;
-  transition: left 0.25s ease;
+  position: relative;
+  width: 100%;
 }
 
 .header-logo {

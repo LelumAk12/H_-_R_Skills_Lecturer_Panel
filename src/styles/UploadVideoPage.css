@@ -5,14 +5,14 @@
 }
 .upload-video-main {
   flex: 1;
-  margin-left: var(--sidebar-width, 280px);
+  margin-left: 0;
   display: flex;
   flex-direction: column;
 }
 .upload-video-content {
   flex: 1;
-  padding: 96px 48px 48px;
-  max-width: 1000px;
+  padding: 24px 48px 48px;
+  max-width: 1100px;
   width: 100%;
   margin: 0 auto;
 }

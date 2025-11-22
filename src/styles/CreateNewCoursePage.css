@@ -14,11 +14,11 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 48px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+  z-index: 1;
 }
 
 .create-course-header-logo {
@@ -79,7 +79,7 @@
 
 .create-course-content {
   flex: 1;
-  padding: 96px 48px 48px;
+  padding: 24px 48px 48px;
   max-width: 900px;
   width: 100%;
   margin: 0 auto;

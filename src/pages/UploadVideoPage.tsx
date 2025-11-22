@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
-import { Footer } from '../components/Footer';
 import { useApp } from '../context/AppContext';
 import { UploadIcon, VideoIcon } from 'lucide-react';
 import { toast } from 'sonner';
@@ -86,7 +85,7 @@ export function UploadVideoPage() {
             </form>
           </div>
         </div>
-        <Footer />
+        
       </div>
     </div>;
 }

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PlusIcon } from 'lucide-react';
-import { Footer } from '../components/Footer';
 import '../styles/CreateNewCoursePage.css';
 export function CreateNewCoursePage() {
   const navigate = useNavigate();
@@ -93,6 +92,5 @@ export function CreateNewCoursePage() {
         </div>
       </div>
 
-      <Footer />
     </div>;
 }

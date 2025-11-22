@@ -1,6 +1,5 @@
 import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
-import { Footer } from '../components/Footer';
 import { useState, useEffect } from 'react';
 import { BellIcon, EyeIcon, Trash2Icon, XIcon } from 'lucide-react';
 import { useApp } from '../context/AppContext';
@@ -94,7 +93,7 @@ export function NotificationPage() {
           )}
         </div>
 
-        <Footer />
+        
       </div>
     </div>;
 }

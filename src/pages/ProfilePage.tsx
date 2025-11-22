@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
-import { Footer } from '../components/Footer';
 import { QualificationTable } from '../components/QualificationTable';
 import { useApp } from '../context/AppContext';
 import '../styles/ProfilePage.css';
@@ -41,6 +40,13 @@ export function ProfilePage() {
     setProfileData({
       ...profileData,
       [e.target.name]: e.target.value
+    });
+  };
+  const handleContactChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const digits = e.target.value.replace(/\D/g, '');
+    setProfileData({
+      ...profileData,
+      contact: digits
     });
   };
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -169,9 +175,9 @@ export function ProfilePage() {
                     <input type="text" name="address" value={profileData.address} onChange={handleProfileChange} className="profile-input" placeholder="Enter your address" />
                   </div>
                   <div className="profile-form-group">
-                    <label className="profile-label">Contact No</label>
-                    <input type="text" name="contact" value={profileData.contact} onChange={handleProfileChange} className="profile-input" placeholder="Enter your contact number" />
-                  </div>
+                      <label className="profile-label">Contact No</label>
+                      <input type="tel" inputMode="numeric" pattern="[0-9]*" name="contact" value={profileData.contact} onChange={handleContactChange} className="profile-input" placeholder="Enter your contact number" />
+                    </div>
                 </div>
 
                 <div className="profile-form-row">
@@ -195,10 +201,9 @@ export function ProfilePage() {
 
             {qualifications && qualifications.length > 0 && <QualificationTable qualifications={qualifications} onEdit={handleEditQualification} onDelete={handleDeleteQualification} />}
 
-            <div className="qualification-form">
-              <h3 className="qualification-form-title">
-                {editingQualIndex !== null ? 'Edit Qualification' : 'Add New Qualification'}
-              </h3>
+            {/* Inline Add Form: only shown when not editing an existing qualification */}
+            {editingQualIndex === null && <div className="qualification-form">
+              <h3 className="qualification-form-title">Add New Qualification</h3>
               <div className="qualification-form-grid">
                 <div className="qualification-form-group">
                   <label className="qualification-label">Degree</label>
@@ -223,14 +228,43 @@ export function ProfilePage() {
                 </div>
               </div>
               <div className="qualification-form-actions">
-                {editingQualIndex !== null && <button onClick={handleCancelEdit} className="qualification-btn cancel">
-                    Cancel
-                  </button>}
-                <button onClick={handleSaveQualification} className="qualification-btn save">
-                  {editingQualIndex !== null ? 'Update' : 'Add'} Qualification
-                </button>
+                <button onClick={handleSaveQualification} className="qualification-btn save">Add Qualification</button>
               </div>
-            </div>
+            </div>}
+
+            {/* Edit Popup: modal card to edit existing qualification */}
+            {editingQualIndex !== null && <div className="qual-edit-overlay">
+              <div className="qual-edit-card">
+                <h3 className="qualification-form-title">Edit Qualification</h3>
+                <div className="qualification-form-grid">
+                  <div className="qualification-form-group">
+                    <label className="qualification-label">Degree</label>
+                    <input type="text" placeholder="e.g., BSc in Computer Science" value={qualificationForm.degree} onChange={e => setQualificationForm({
+                    ...qualificationForm,
+                    degree: e.target.value
+                  })} className="qualification-input" />
+                  </div>
+                  <div className="qualification-form-group">
+                    <label className="qualification-label">Institution</label>
+                    <input type="text" placeholder="e.g., University of Colombo" value={qualificationForm.institution} onChange={e => setQualificationForm({
+                    ...qualificationForm,
+                    institution: e.target.value
+                  })} className="qualification-input" />
+                  </div>
+                  <div className="qualification-form-group">
+                    <label className="qualification-label">Year</label>
+                    <input type="text" placeholder="e.g., 2020" value={qualificationForm.year} onChange={e => setQualificationForm({
+                    ...qualificationForm,
+                    year: e.target.value
+                  })} className="qualification-input" />
+                  </div>
+                </div>
+                <div className="qualification-form-actions">
+                  <button onClick={handleCancelEdit} className="qualification-btn cancel">Cancel</button>
+                  <button onClick={handleSaveQualification} className="qualification-btn save">Update Qualification</button>
+                </div>
+              </div>
+            </div>}
           </div>
 
           <div className="profile-actions">
@@ -250,7 +284,7 @@ export function ProfilePage() {
             </div>}
         </div>
 
-        <Footer />
+        
       </div>
     </div>;
 }

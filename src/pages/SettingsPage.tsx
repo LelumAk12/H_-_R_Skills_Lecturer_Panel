@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
-import { Footer } from '../components/Footer';
 import { ChevronDownIcon } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { toast } from 'sonner';
@@ -137,7 +136,7 @@ export function SettingsPage() {
             </div>
           </div>
         </div>
-        <Footer />
+        
       </div>
     </div>;
 }

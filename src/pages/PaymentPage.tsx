@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
-import { Footer } from '../components/Footer';
 import { ChevronDownIcon } from 'lucide-react';
 import '../styles/PaymentPage.css';
 import { useApp } from '../context/AppContext';
@@ -10,33 +9,67 @@ export function PaymentPage() {
   const [activeTab, setActiveTab] = useState<'local' | 'international'>('local');
   const [localForm, setLocalForm] = useState({
     holderName: '',
-    accountNumber: '**********1256',
+    accountNumber: '',
     bankName: '',
     branchName: '',
-    amount: 'LKR 0.00',
+    amount: '',
     remarks: ''
   });
   const [internationalForm, setInternationalForm] = useState({
     holderName: '',
     bankName: '',
     branchName: '',
-    accountNumber: '**********1256',
-    swiftCode: '**********',
+    accountNumber: '',
+    swiftCode: '',
     currency: '',
-    amount: '0.00',
+    amount: '',
     remarks: ''
   });
   const handleLocalChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
     setLocalForm({
       ...localForm,
-      [e.target.name]: e.target.value
+      [name]: value
     });
   };
   const handleInternationalChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
     setInternationalForm({
       ...internationalForm,
-      [e.target.name]: e.target.value
+      [name]: value
     });
+  };
+  // Numeric-only handlers
+  const handleLocalNumeric = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    let newValue = value;
+    if (name === 'accountNumber') {
+      newValue = value.replace(/\D/g, '');
+    } else if (name === 'amount') {
+      newValue = value.replace(/[^\d.]/g, '');
+      const parts = newValue.split('.');
+      if (parts.length > 2) newValue = parts[0] + '.' + parts.slice(1).join('');
+      if (parts[1]) parts[1] = parts[1].slice(0, 2);
+      newValue = parts[1] ? parts[0] + '.' + parts[1] : parts[0];
+    }
+    setLocalForm({ ...localForm, [name]: newValue });
+  };
+  const handleInternationalNumeric = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    let newValue = value;
+    if (name === 'accountNumber') {
+      newValue = value.replace(/\D/g, '');
+    } else if (name === 'amount') {
+      newValue = value.replace(/[^\d.]/g, '');
+      const parts = newValue.split('.');
+      if (parts.length > 2) newValue = parts[0] + '.' + parts.slice(1).join('');
+      if (parts[1]) parts[1] = parts[1].slice(0, 2);
+      newValue = parts[1] ? parts[0] + '.' + parts[1] : parts[0];
+    } else if (name === 'swiftCode') {
+      // SWIFT codes are alphanumeric and typically uppercase, limit to 11 chars
+      newValue = value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 11);
+    }
+    setInternationalForm({ ...internationalForm, [name]: newValue });
   };
   const handleWithdrawal = (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,7 +120,7 @@ export function PaymentPage() {
 
                 <div className="payment-form-group">
                   <label className="payment-label">Account Number</label>
-                  <input type="text" name="accountNumber" placeholder="**********1256" value={localForm.accountNumber} onChange={handleLocalChange} className="payment-input" />
+                  <input type="text" inputMode="numeric" name="accountNumber" placeholder="**************" value={localForm.accountNumber} onChange={handleLocalNumeric} className="payment-input" />
                 </div>
 
                 <div className="payment-form-group">
@@ -102,7 +135,7 @@ export function PaymentPage() {
 
                 <div className="payment-form-group">
                   <label className="payment-label">Enter Amount (LKR)</label>
-                  <input type="text" name="amount" placeholder="LKR 0.00" value={localForm.amount} onChange={handleLocalChange} className="payment-input" />
+                  <input type="text" inputMode="decimal" name="amount" placeholder="LKR 0.00" value={localForm.amount} onChange={handleLocalNumeric} className="payment-input" />
                 </div>
 
                 <div className="payment-form-group">
@@ -133,12 +166,12 @@ export function PaymentPage() {
 
                 <div className="payment-form-group">
                   <label className="payment-label">Account Number</label>
-                  <input type="text" name="accountNumber" placeholder="**********1256" value={internationalForm.accountNumber} onChange={handleInternationalChange} className="payment-input" />
+                  <input type="text" inputMode="numeric" name="accountNumber" placeholder="**************" value={internationalForm.accountNumber} onChange={handleInternationalNumeric} className="payment-input" />
                 </div>
 
                 <div className="payment-form-group">
                   <label className="payment-label">SWIFT Code</label>
-                  <input type="text" name="swiftCode" placeholder="**********" value={internationalForm.swiftCode} onChange={handleInternationalChange} className="payment-input" />
+                  <input type="text" inputMode="text" name="swiftCode" placeholder="**********" value={internationalForm.swiftCode} onChange={handleInternationalNumeric} className="payment-input" />
                 </div>
 
                 <div className="payment-form-group">
@@ -158,7 +191,7 @@ export function PaymentPage() {
 
                 <div className="payment-form-group">
                   <label className="payment-label">Enter Amount</label>
-                  <input type="text" name="amount" placeholder="0.00" value={internationalForm.amount} onChange={handleInternationalChange} className="payment-input" />
+                  <input type="text" inputMode="decimal" name="amount" placeholder="0.00" value={internationalForm.amount} onChange={handleInternationalNumeric} className="payment-input" />
                 </div>
 
                 <div className="payment-form-group">
@@ -175,7 +208,7 @@ export function PaymentPage() {
           </div>
         </div>
 
-        <Footer />
+        
       </div>
     </div>;
 }

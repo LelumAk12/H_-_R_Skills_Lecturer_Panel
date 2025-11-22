@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
-import { Footer } from '../components/Footer';
 import { useApp } from '../context/AppContext';
 import { toast } from 'sonner';
 import '../styles/LiveModulePage.css';
@@ -42,6 +41,41 @@ export function LiveModulePage() {
       setErrors({
         ...errors,
         [name]: ''
+      });
+    }
+  };
+  // Try to open the native picker (calendar/clock) when available
+  const openNativePicker = (e: React.FocusEvent<HTMLInputElement> | React.MouseEvent<HTMLInputElement>) => {
+    const input = e.currentTarget as HTMLInputElement;
+    const anyInput = input as any;
+    if (typeof anyInput.showPicker === 'function') {
+      try {
+        anyInput.showPicker();
+      } catch (err) {
+        // ignore if showPicker fails
+      }
+    }
+  };
+  const handlePaymentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+    // Allow digits and at most one decimal point, limit to 2 decimals
+    value = value.replace(/[^\d.]/g, '');
+    const parts = value.split('.');
+    if (parts.length > 2) {
+      value = parts[0] + '.' + parts.slice(1).join('');
+    }
+    if (parts[1]) {
+      parts[1] = parts[1].slice(0, 2);
+      value = parts[0] + '.' + parts[1];
+    }
+    setFormData({
+      ...formData,
+      payment: value
+    });
+    if (errors.payment) {
+      setErrors({
+        ...errors,
+        payment: ''
       });
     }
   };
@@ -146,7 +180,7 @@ export function LiveModulePage() {
                   <label className="live-module-label">
                     Date <span className="required">*</span>
                   </label>
-                  <input type="date" name="date" value={formData.date} onChange={handleChange} className={`live-module-input ${errors.date ? 'error' : ''}`} />
+                  <input type="date" name="date" value={formData.date} onChange={handleChange} onFocus={openNativePicker} onClick={openNativePicker} className={`live-module-input ${errors.date ? 'error' : ''}`} />
                   {errors.date && <span className="error-message">{errors.date}</span>}
                 </div>
               </div>
@@ -154,7 +188,7 @@ export function LiveModulePage() {
                 <label className="live-module-label">
                   Time <span className="required">*</span>
                 </label>
-                <input type="time" name="time" value={formData.time} onChange={handleChange} className={`live-module-input ${errors.time ? 'error' : ''}`} />
+                <input type="time" name="time" value={formData.time} onChange={handleChange} onFocus={openNativePicker} onClick={openNativePicker} className={`live-module-input ${errors.time ? 'error' : ''}`} />
                 {errors.time && <span className="error-message">{errors.time}</span>}
               </div>
               <div className="live-module-form-group">
@@ -176,7 +210,7 @@ export function LiveModulePage() {
                   <label className="live-module-label">
                     Payment (LKR) <span className="required">*</span>
                   </label>
-                  <input type="text" name="payment" placeholder="Enter amount" value={formData.payment} onChange={handleChange} className={`live-module-input ${errors.payment ? 'error' : ''}`} />
+                  <input type="text" inputMode="numeric" name="payment" placeholder="Enter amount" value={formData.payment} onChange={handlePaymentChange} className={`live-module-input ${errors.payment ? 'error' : ''}`} />
                   {errors.payment && <span className="error-message">{errors.payment}</span>}
                 </div>
               </div>
@@ -191,7 +225,7 @@ export function LiveModulePage() {
             </form>
           </div>
         </div>
-        <Footer />
+        
       </div>
     </div>;
 }

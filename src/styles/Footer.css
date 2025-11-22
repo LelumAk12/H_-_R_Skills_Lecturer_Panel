@@ -1,9 +1,14 @@
 .footer {
   background-color: #1a2b4a;
   color: #ffffff;
-  padding: 48px 32px 24px;
+  padding: 32px 24px 12px;
   margin-top: auto;
   animation: fadeIn 0.5s ease-out;
+}
+
+/* ensure footer background spans full viewport width when rendered after content */
+.footer {
+  width: 100%;
 }
 
 .footer-content {
@@ -29,6 +34,7 @@
 .footer-logo {
   height: 70px;
   width: 70px;
+  border-radius: 12px;
   object-fit: contain;
   transition: transform 0.3s ease;
 }

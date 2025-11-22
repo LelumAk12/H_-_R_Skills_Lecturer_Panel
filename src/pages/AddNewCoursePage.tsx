@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
-import { Footer } from '../components/Footer';
 import { useApp } from '../context/AppContext';
 import { toast } from 'sonner';
 import '../styles/AddNewCoursePage.css';
@@ -155,7 +154,7 @@ export function AddNewCoursePage() {
             </form>
           </div>
         </div>
-        <Footer />
+        
       </div>
     </div>;
 }
