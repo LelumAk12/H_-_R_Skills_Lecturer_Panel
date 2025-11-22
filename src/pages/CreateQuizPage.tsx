@@ -1,195 +1,109 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PlusIcon, XIcon, TrashIcon, CalendarIcon } from 'lucide-react';
+import { Header } from '../components/Header';
+import { Sidebar } from '../components/Sidebar';
 import { Footer } from '../components/Footer';
+import { useApp } from '../context/AppContext';
+import { PlusIcon, TrashIcon } from 'lucide-react';
+import { toast } from 'sonner';
 import '../styles/CreateQuizPage.css';
-interface Answer {
-  text: string;
-}
 interface Question {
-  text: string;
-  answers: Answer[];
-  points: number;
+  question: string;
+  options: string[];
+  correctAnswer: number;
 }
 export function CreateQuizPage() {
   const navigate = useNavigate();
-  const [quizInfo, setQuizInfo] = useState({
-    title: '',
-    description: '',
-    dueDate: ''
-  });
+  const {
+    user
+  } = useApp();
+  const [quizTitle, setQuizTitle] = useState('');
   const [questions, setQuestions] = useState<Question[]>([{
-    text: '',
-    answers: [{
-      text: ''
-    }, {
-      text: ''
-    }, {
-      text: ''
-    }],
-    points: 10
+    question: '',
+    options: ['', '', '', ''],
+    correctAnswer: 0
   }]);
-  const handleQuizInfoChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setQuizInfo({
-      ...quizInfo,
-      [e.target.name]: e.target.value
-    });
-  };
-  const handleQuestionChange = (index: number, value: string) => {
-    const newQuestions = [...questions];
-    newQuestions[index].text = value;
-    setQuestions(newQuestions);
-  };
-  const handleAnswerChange = (qIndex: number, aIndex: number, value: string) => {
-    const newQuestions = [...questions];
-    newQuestions[qIndex].answers[aIndex].text = value;
-    setQuestions(newQuestions);
-  };
-  const addAnswer = (qIndex: number) => {
-    const newQuestions = [...questions];
-    newQuestions[qIndex].answers.push({
-      text: ''
-    });
-    setQuestions(newQuestions);
-  };
-  const removeAnswer = (qIndex: number, aIndex: number) => {
-    const newQuestions = [...questions];
-    newQuestions[qIndex].answers.splice(aIndex, 1);
-    setQuestions(newQuestions);
-  };
-  const addQuestion = () => {
+  const handleAddQuestion = () => {
     setQuestions([...questions, {
-      text: '',
-      answers: [{
-        text: ''
-      }, {
-        text: ''
-      }, {
-        text: ''
-      }],
-      points: 10
+      question: '',
+      options: ['', '', '', ''],
+      correctAnswer: 0
     }]);
   };
-  const removeQuestion = (index: number) => {
-    const newQuestions = questions.filter((_, i) => i !== index);
-    setQuestions(newQuestions);
+  const handleRemoveQuestion = (index: number) => {
+    setQuestions(questions.filter((_, i) => i !== index));
+  };
+  const handleQuestionChange = (index: number, value: string) => {
+    const updated = [...questions];
+    updated[index].question = value;
+    setQuestions(updated);
+  };
+  const handleOptionChange = (qIndex: number, oIndex: number, value: string) => {
+    const updated = [...questions];
+    updated[qIndex].options[oIndex] = value;
+    setQuestions(updated);
+  };
+  const handleCorrectAnswerChange = (qIndex: number, oIndex: number) => {
+    const updated = [...questions];
+    updated[qIndex].correctAnswer = oIndex;
+    setQuestions(updated);
   };
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate('/lecture/create-course');
+    if (!quizTitle) {
+      toast.error('Please enter a quiz title');
+      return;
+    }
+    toast.success('Quiz created successfully!');
+    navigate('/lecturer/courses');
   };
   return <div className="create-quiz-page">
-      <header className="create-quiz-header">
-        <div className="create-quiz-header-logo">
-          <img src="/Logo.png" alt="H & R Skills" className="create-quiz-logo" />
-        </div>
-
-        <nav className="create-quiz-nav">
-          <button onClick={() => navigate('/lecturer/profile')} className="create-quiz-nav-link">
-            Home
-          </button>
-          <button onClick={() => navigate('/lecturer/courses')} className="create-quiz-nav-link">
-            My Courses
-          </button>
-          <button onClick={() => navigate('/lecturer/live-module')} className="create-quiz-nav-link live">
-            • Live
-          </button>
-        </nav>
-
-        <div className="create-quiz-header-actions">
-          <button className="create-quiz-header-icon">🔍</button>
-          <button className="create-quiz-header-icon">🔔</button>
-          <button className="create-quiz-header-icon">👤</button>
-        </div>
-      </header>
-
-      <div className="create-quiz-content">
-        <h1 className="create-quiz-title">Create New Quiz</h1>
-
-        <div className="create-quiz-grid">
-          <div className="create-quiz-info-section">
-            <h2 className="create-quiz-section-title">Quiz Informtaion</h2>
-
-            <form className="create-quiz-info-form">
+      <Sidebar userName={user.name} userEmail={user.email} userImage={user.image} />
+      <div className="create-quiz-main">
+        <Header />
+        <div className="create-quiz-content">
+          <h1 className="create-quiz-title">Create Quiz</h1>
+          <div className="create-quiz-section">
+            <form onSubmit={handleSubmit} className="create-quiz-form">
               <div className="create-quiz-form-group">
-                <label className="create-quiz-label">Title</label>
-                <input type="text" name="title" placeholder="Enter Title" value={quizInfo.title} onChange={handleQuizInfoChange} className="create-quiz-input" />
+                <label className="create-quiz-label">Quiz Title</label>
+                <input type="text" placeholder="Enter quiz title" value={quizTitle} onChange={e => setQuizTitle(e.target.value)} className="create-quiz-input" required />
               </div>
-
-              <div className="create-quiz-form-group">
-                <label className="create-quiz-label">Description</label>
-                <textarea name="description" placeholder="Enter Title" value={quizInfo.description} onChange={handleQuizInfoChange} className="create-quiz-textarea" rows={4} />
-              </div>
-
-              <div className="create-quiz-form-group">
-                <label className="create-quiz-label">Due Date (Optional)</label>
-                <div className="create-quiz-date-wrapper">
-                  <input type="text" name="dueDate" placeholder="mm/dd/yy" value={quizInfo.dueDate} onChange={handleQuizInfoChange} className="create-quiz-input" />
-                  <CalendarIcon className="create-quiz-calendar-icon" />
-                </div>
+              {questions.map((q, qIndex) => <div key={qIndex} className="create-quiz-question-block">
+                  <div className="create-quiz-question-header">
+                    <h3 className="create-quiz-question-number">
+                      Question {qIndex + 1}
+                    </h3>
+                    {questions.length > 1 && <button type="button" onClick={() => handleRemoveQuestion(qIndex)} className="create-quiz-remove-btn">
+                        <TrashIcon className="create-quiz-icon" />
+                      </button>}
+                  </div>
+                  <div className="create-quiz-form-group">
+                    <input type="text" placeholder="Enter your question" value={q.question} onChange={e => handleQuestionChange(qIndex, e.target.value)} className="create-quiz-input" required />
+                  </div>
+                  <div className="create-quiz-options">
+                    {q.options.map((option, oIndex) => <div key={oIndex} className="create-quiz-option">
+                        <input type="radio" name={`correct-${qIndex}`} checked={q.correctAnswer === oIndex} onChange={() => handleCorrectAnswerChange(qIndex, oIndex)} className="create-quiz-radio" />
+                        <input type="text" placeholder={`Option ${oIndex + 1}`} value={option} onChange={e => handleOptionChange(qIndex, oIndex, e.target.value)} className="create-quiz-input" required />
+                      </div>)}
+                  </div>
+                </div>)}
+              <button type="button" onClick={handleAddQuestion} className="create-quiz-add-btn">
+                <PlusIcon className="create-quiz-icon" />
+                Add Question
+              </button>
+              <div className="create-quiz-actions">
+                <button type="button" onClick={() => navigate('/lecturer/courses')} className="create-quiz-btn cancel">
+                  Cancel
+                </button>
+                <button type="submit" className="create-quiz-btn save">
+                  Create Quiz
+                </button>
               </div>
             </form>
           </div>
-
-          <div className="create-quiz-questions-section">
-            <h2 className="create-quiz-section-title">Questions</h2>
-
-            <div className="create-quiz-questions-list">
-              {questions.map((question, qIndex) => <div key={qIndex} className="create-quiz-question-card">
-                  <div className="create-quiz-question-header">
-                    <h3 className="create-quiz-question-number">
-                      Question {String(qIndex + 1).padStart(2, '0')}
-                    </h3>
-                    <button onClick={() => removeQuestion(qIndex)} className="create-quiz-delete-btn">
-                      <TrashIcon className="create-quiz-delete-icon" />
-                    </button>
-                  </div>
-
-                  <textarea placeholder="Enter question" value={question.text} onChange={e => handleQuestionChange(qIndex, e.target.value)} className="create-quiz-question-input" rows={3} />
-
-                  <div className="create-quiz-answers">
-                    {question.answers.map((answer, aIndex) => <div key={aIndex} className="create-quiz-answer-row">
-                        <input type="radio" name={`question-${qIndex}`} className="create-quiz-radio" />
-                        <input type="text" placeholder="Answer option" value={answer.text} onChange={e => handleAnswerChange(qIndex, aIndex, e.target.value)} className="create-quiz-answer-input" />
-                        <button onClick={() => removeAnswer(qIndex, aIndex)} className="create-quiz-remove-answer">
-                          <XIcon className="create-quiz-x-icon" />
-                        </button>
-                      </div>)}
-                  </div>
-
-                  <button onClick={() => addAnswer(qIndex)} className="create-quiz-add-answer">
-                    <PlusIcon className="create-quiz-plus-icon" />
-                    Add Answer Option
-                  </button>
-
-                  <div className="create-quiz-points">
-                    <label className="create-quiz-points-label">Point</label>
-                    <input type="number" value={question.points} onChange={e => {
-                  const newQuestions = [...questions];
-                  newQuestions[qIndex].points = parseInt(e.target.value) || 0;
-                  setQuestions(newQuestions);
-                }} className="create-quiz-points-input" />
-                  </div>
-                </div>)}
-            </div>
-
-            <button onClick={addQuestion} className="create-quiz-add-question">
-              <PlusIcon className="create-quiz-plus-icon" />
-              Add New Question
-            </button>
-
-            <div className="create-quiz-actions">
-              <button onClick={() => navigate('/lecturer/create-course')} className="create-quiz-btn draft">
-                Save Draft
-              </button>
-              <button onClick={handleSubmit} className="create-quiz-btn submit">
-                Submit
-              </button>
-            </div>
-          </div>
         </div>
+        <Footer />
       </div>
-
-      <Footer />
     </div>;
 }

@@ -1,5 +1,5 @@
 .header {
-  height: 80px;
+  height: 75px;
   background-color: var(--bg-secondary);
   border-bottom: 1px solid var(--border-primary);
   display: flex;
@@ -8,9 +8,10 @@
   padding: 0 48px;
   position: fixed;
   top: 0;
-  left: 280px;
+  left: var(--sidebar-width, 280px);
   right: 0;
   z-index: 100;
+  transition: left 0.25s ease;
 }
 
 .header-logo {
@@ -23,14 +24,14 @@
 }
 
 .header-logo-image {
-  height:75px;
+  height: 80px;
   width: auto;
 }
 
 .header-nav {
   display: flex;
   align-items: center;
-  gap: 6rem;
+  gap: 6.5rem;
   flex: 1;
   justify-content: center;
 }
@@ -38,8 +39,8 @@
 .header-nav-link {
   background: none;
   border: none;
-  font-size: 1.15rem;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 550;
   color: var(--text-primary);
   cursor: pointer;
   padding: 8px 0;

@@ -6,7 +6,7 @@
 
 .settings-main {
   flex: 1;
-  margin-left: 280px;
+  margin-left: var(--sidebar-width, 280px);
   display: flex;
   flex-direction: column;
 }
@@ -45,7 +45,7 @@
 }
 
 .settings-section-title {
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 600;
   color: #1a2b4a;
   margin: 0 0 24px 0;
@@ -199,6 +199,12 @@
   color: #6b7280;
   margin-top: 4px;
   display: block;
+}
+
+.settings-divider {
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 24px 0;
 }
 
 .settings-subsection-title {

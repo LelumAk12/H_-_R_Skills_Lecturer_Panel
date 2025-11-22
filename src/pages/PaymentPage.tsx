@@ -4,7 +4,9 @@ import { Sidebar } from '../components/Sidebar';
 import { Footer } from '../components/Footer';
 import { ChevronDownIcon } from 'lucide-react';
 import '../styles/PaymentPage.css';
+import { useApp } from '../context/AppContext';
 export function PaymentPage() {
+    const { user } = useApp();
   const [activeTab, setActiveTab] = useState<'local' | 'international'>('local');
   const [localForm, setLocalForm] = useState({
     holderName: '',
@@ -41,7 +43,8 @@ export function PaymentPage() {
     console.log('Withdrawal requested');
   };
   return <div className="payment-page">
-      <Sidebar userName="Dr. Nadeesha Perera" userEmail="nadeeshaperera@gmail.com" userImage="/Profile.jpg" />
+      <Sidebar userName={user.name} userEmail={user.email} userImage={user.image} />
+
 
       <div className="payment-main">
         <Header />

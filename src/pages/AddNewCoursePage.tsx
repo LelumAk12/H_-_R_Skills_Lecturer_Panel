@@ -12,10 +12,6 @@ export function AddNewCoursePage() {
     user,
     addCourse
   } = useApp();
-
-  if (!user) {
-    return <div>Loading...</div>;
-  }
   const [formData, setFormData] = useState({
     category: '',
     name: '',
@@ -103,7 +99,7 @@ export function AddNewCoursePage() {
     navigate('/lecturer/courses');
   };
   return <div className="add-course-page">
-      <Sidebar userName={user.name} userEmail={user.email} userImage="Profile.jpg" />
+      <Sidebar userName={user.name} userEmail={user.email} userImage={user.image} />
       <div className="add-course-main">
         <Header />
         <div className="add-course-content">

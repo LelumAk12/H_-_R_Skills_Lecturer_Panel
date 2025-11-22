@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import { UserIcon, BookOpenIcon, RadioIcon, CreditCardIcon, BellIcon, SettingsIcon, LogOutIcon } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { UserIcon, BookOpenIcon, RadioIcon, CreditCardIcon, BellIcon, SettingsIcon, LogOutIcon, MenuIcon, XIcon } from 'lucide-react';
 import '../styles/Sidebar.css';
 interface SidebarProps {
   userName: string;
@@ -13,6 +14,23 @@ export function Sidebar({
 }: SidebarProps) {
   const navigate = useNavigate();
   const location = useLocation();
+  const [collapsed, setCollapsed] = useState<boolean>(() => {
+    try {
+      const v = localStorage.getItem('sidebar-collapsed');
+      return v === 'true';
+    } catch (e) {
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    // set CSS variable for other pages to read
+    const width = collapsed ? '72px' : '280px';
+    document.documentElement.style.setProperty('--sidebar-width', width);
+    try {
+      localStorage.setItem('sidebar-collapsed', collapsed ? 'true' : 'false');
+    } catch (e) {}
+  }, [collapsed]);
   const menuItems = [{
     icon: UserIcon,
     label: 'Profile',
@@ -40,7 +58,10 @@ export function Sidebar({
     path: '/lecturer/settings'
   }];
   const isActive = (path: string) => location.pathname === path;
-  return <div className="sidebar">
+  return <div className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
+      <button className="sidebar-collapse-btn" onClick={() => setCollapsed(prev => !prev)} title={collapsed ? 'Open sidebar' : 'Close sidebar'}>
+        {collapsed ? <MenuIcon /> : <XIcon />}
+      </button>
       <div className="sidebar-profile">
         <img src={userImage} alt={userName} className="sidebar-profile-image" />
         <div className="sidebar-profile-info">

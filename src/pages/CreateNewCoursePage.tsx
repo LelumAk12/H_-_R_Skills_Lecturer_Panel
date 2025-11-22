@@ -22,7 +22,7 @@ export function CreateNewCoursePage() {
   return <div className="create-course-page">
       <header className="create-course-header">
         <div className="create-course-header-logo">
-          <img src="/Profile.jpg" alt="H & R Skills" className="create-course-logo" />
+          <img src="/Logo.png" alt="H & R Skills" className="create-course-logo" />
         </div>
 
         <nav className="create-course-nav">

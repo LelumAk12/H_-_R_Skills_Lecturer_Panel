@@ -1,15 +1,21 @@
-import { useNavigate } from 'react-router-dom';
-import { FacebookIcon, InstagramIcon, MessageCircleIcon, YoutubeIcon } from 'lucide-react';
-import '../styles/Footer.css';
+import { useNavigate } from 'react-router-dom'
+import {
+  FacebookIcon,
+  InstagramIcon,
+  MessageCircleIcon,
+  YoutubeIcon,
+} from 'lucide-react'
+import '../styles/Footer.css'
 export function Footer() {
-  const navigate = useNavigate();
-  return <footer className="footer">
+  const navigate = useNavigate()
+  return (
+    <footer className="footer">
       <div className="footer-content">
         <div className="footer-section">
           <div className="footer-logo-wrapper">
-            <img src="/Footer-Logo.jpg" alt="H & R Skills" className="footer-logo" />
-            <div className="footer-brand">
-            </div>
+            <img src="/Footer-Logo.jpg"
+              alt="H & R Skills"
+              className="footer-logo" />
           </div>
           <div className="footer-social">
             <button className="footer-social-btn">
@@ -84,10 +90,16 @@ export function Footer() {
         <p>
           2025 © All Rights Reserved | H & R Skills Pvt Ltd | Designed &
           Developed by{' '}
-          <a href="https://everefficient.lk/" target="_blank" rel="noopener noreferrer" className="footer-link">
+          <a
+            href="https://everefficient.lk/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer-link"
+          >
             EVER EFFICIENT Business Management (Pvt) Ltd.
           </a>
         </p>
       </div>
-    </footer>;
+    </footer>
+  )
 }

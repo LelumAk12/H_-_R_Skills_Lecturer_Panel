@@ -1,3 +1,113 @@
+.notification-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.notification-popup-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  padding: 32px 24px 24px 24px;
+  min-width: 320px;
+  max-width: 90vw;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.notification-popup-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #1a2b4a;
+}
+.notification-popup-description {
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 8px;
+}
+.notification-popup-timestamp {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 16px;
+}
+.notification-popup-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #888;
+}
+.notification-popup-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+.notification-popup-btn {
+  padding: 8px 18px;
+  border-radius: 6px;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.notification-popup-btn.delete {
+  background: #fee2e2;
+  color: #ef4444;
+}
+.notification-popup-btn.cancel {
+  background: #e0f2fe;
+  color: #0ea5e9;
+}
+.notification-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-left: 16px;
+}
+
+.notification-action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.notification-action-btn.view:hover {
+  background: #e0f2fe;
+}
+.notification-action-btn.delete:hover {
+  background: #fee2e2;
+}
+
+.notification-action-icon {
+  width: 20px;
+  height: 20px;
+  color: #6b7280;
+}
+.notification-action-btn.delete .notification-action-icon {
+  color: #ef4444;
+}
+.notification-action-btn.view .notification-action-icon {
+  color: #0ea5e9;
+}
 
 .notification-page {
   display: flex;
@@ -7,7 +117,7 @@
 
 .notification-main {
   flex: 1;
-  margin-left: 280px;
+  margin-left: var(--sidebar-width, 280px);
   display: flex;
   flex-direction: column;
 }

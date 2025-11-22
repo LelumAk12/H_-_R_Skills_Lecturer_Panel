@@ -7,7 +7,7 @@
 
 .add-course-main {
   flex: 1;
-  margin-left: 280px;
+  margin-left: var(--sidebar-width, 280px);
   display: flex;
   flex-direction: column;
   transition: margin-left 0.3s ease;

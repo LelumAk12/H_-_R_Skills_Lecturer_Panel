@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
 import { Footer } from '../components/Footer';
@@ -13,19 +13,14 @@ export function ProfilePage() {
     updateQualification,
     deleteQualification
   } = useApp();
-
-  if (!user || !user.qualifications) {
-    return <div>Loading profile...</div>;
-  }
-
-  const [profileImage, setProfileImage] = useState(user.image || '');
+  const [profileImage, setProfileImage] = useState(user.image);
   const [profileData, setProfileData] = useState({
-    name: user.name || '',
-    email: user.email || '',
-    address: user.address || '',
-    contact: user.contact || '',
-    university: user.university || '',
-    primaryCourse: user.primaryCourse || ''
+    name: user.name,
+    email: user.email,
+    address: user.address,
+    contact: user.contact,
+    university: user.university,
+    primaryCourse: user.primaryCourse
   });
   const [editingQualIndex, setEditingQualIndex] = useState<number | null>(null);
   const [qualificationForm, setQualificationForm] = useState({
@@ -33,6 +28,8 @@ export function ProfilePage() {
     institution: '',
     year: ''
   });
+  const [qualifications, setQualifications] = useState(user.qualifications || []);
+  const [deleteQualIndex, setDeleteQualIndex] = useState<number | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const showToast = (message: string) => {
@@ -64,15 +61,25 @@ export function ProfilePage() {
     showToast('Profile updated successfully!');
   };
   const handleEditQualification = (index: number) => {
-    const qual = user.qualifications[index];
+    const qual = qualifications[index];
     setQualificationForm(qual);
     setEditingQualIndex(index);
   };
   const handleDeleteQualification = (index: number) => {
-    if (window.confirm('Are you sure you want to delete this qualification?')) {
-      deleteQualification(index);
-      showToast('Qualification deleted successfully!');
-    }
+    // open confirmation card instead of native confirm
+    setDeleteQualIndex(index);
+  };
+
+  const confirmDeleteQualification = () => {
+    if (deleteQualIndex === null) return;
+    deleteQualification(deleteQualIndex);
+    setQualifications(prev => prev.filter((_, i) => i !== deleteQualIndex));
+    setDeleteQualIndex(null);
+    showToast('Qualification deleted successfully!');
+  };
+
+  const cancelDeleteQualification = () => {
+    setDeleteQualIndex(null);
   };
   const handleSaveQualification = () => {
     if (!qualificationForm.degree || !qualificationForm.institution || !qualificationForm.year) {
@@ -81,9 +88,11 @@ export function ProfilePage() {
     }
     if (editingQualIndex !== null) {
       updateQualification(editingQualIndex, qualificationForm);
+      setQualifications(prev => prev.map((q, i) => i === editingQualIndex ? qualificationForm : q));
       showToast('Qualification updated successfully!');
     } else {
       addQualification(qualificationForm);
+      setQualifications(prev => [...prev, qualificationForm]);
       showToast('Qualification added successfully!');
     }
     setQualificationForm({
@@ -93,6 +102,10 @@ export function ProfilePage() {
     });
     setEditingQualIndex(null);
   };
+
+  useEffect(() => {
+    setQualifications(user.qualifications || []);
+  }, [user.qualifications]);
   const handleCancelEdit = () => {
     setEditingQualIndex(null);
     setQualificationForm({
@@ -109,7 +122,7 @@ export function ProfilePage() {
           </div>
         </div>}
 
-      <Sidebar userName={user.name} userEmail={user.email} userImage="/Profile.jpg" />
+      <Sidebar userName={user.name} userEmail={user.email} userImage={user.image} />
 
       <div className="profile-main">
         <Header />
@@ -180,7 +193,7 @@ export function ProfilePage() {
               <h2 className="profile-section-title">Qualifications</h2>
             </div>
 
-            {user.qualifications.length > 0 && <QualificationTable qualifications={user.qualifications} onEdit={handleEditQualification} onDelete={handleDeleteQualification} />}
+            {qualifications && qualifications.length > 0 && <QualificationTable qualifications={qualifications} onEdit={handleEditQualification} onDelete={handleDeleteQualification} />}
 
             <div className="qualification-form">
               <h3 className="qualification-form-title">
@@ -225,6 +238,16 @@ export function ProfilePage() {
               Save All Changes
             </button>
           </div>
+          {deleteQualIndex !== null && <div className="qual-delete-overlay">
+              <div className="qual-delete-card">
+                <h3 className="qual-delete-title">Delete Qualification?</h3>
+                <p className="qual-delete-body">Are you sure you want to delete this qualification? This action cannot be undone.</p>
+                <div className="qual-delete-actions">
+                  <button className="qual-delete-btn cancel" onClick={cancelDeleteQualification}>Cancel</button>
+                  <button className="qual-delete-btn confirm" onClick={confirmDeleteQualification}>Delete</button>
+                </div>
+              </div>
+            </div>}
         </div>
 
         <Footer />

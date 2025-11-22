@@ -12,10 +12,6 @@ export function SettingsPage() {
     theme,
     toggleTheme
   } = useApp();
-
-  if (!user) {
-    return <div>Loading...</div>;
-  }
   const [formData, setFormData] = useState({
     currentPassword: '',
     newPassword: '',
@@ -84,7 +80,7 @@ export function SettingsPage() {
     });
   };
   return <div className="settings-page">
-      <Sidebar userName={user.name} userEmail={user.email} userImage="/Profile.jpg" />
+      <Sidebar userName={user.name} userEmail={user.email} userImage={user.image} />
       <div className="settings-main">
         <Header />
         <div className="settings-content">
@@ -97,22 +93,14 @@ export function SettingsPage() {
           <div className="settings-section">
             <h2 className="settings-section-title">Account Information</h2>
             <div className="settings-form">
-              <div className="settings-divider"></div>
-              <h3 className="settings-subsection-title">Change Password</h3>
               <div className="settings-form-row">
                 <div className="settings-form-group">
-                  <label className="settings-label">
-                    Current Password <span className="required">*</span>
-                  </label>
+                  <label className="settings-label">Current Password <span className="required">*</span></label>
                   <input type="password" name="currentPassword" placeholder="Enter Current Password" value={formData.currentPassword} onChange={handleChange} className={`settings-input ${errors.currentPassword ? 'error' : ''}`} />
-                  {errors.currentPassword && <span className="error-message">
-                      {errors.currentPassword}
-                    </span>}
+                  {errors.currentPassword && <span className="error-message">{errors.currentPassword}</span>}
                 </div>
                 <div className="settings-form-group">
-                  <label className="settings-label">
-                    New Password <span className="required">*</span>
-                  </label>
+                  <label className="settings-label">New Password <span className="required">*</span></label>
                   <input type="password" name="newPassword" placeholder="Enter New password" value={formData.newPassword} onChange={handleChange} className={`settings-input ${errors.newPassword ? 'error' : ''}`} />
                   {errors.newPassword && <span className="error-message">{errors.newPassword}</span>}
                 </div>

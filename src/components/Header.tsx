@@ -25,7 +25,6 @@ export function Header() {
     setIsSearchOpen(false);
     setSearchQuery('');
     setSearchResults([]);
-    // Navigate to the specific course details page using the courseId
     navigate(`/lecturer/courses/${courseId}`);
   };
   return <header className="header">

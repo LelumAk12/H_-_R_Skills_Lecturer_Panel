@@ -11,10 +11,6 @@ export function LiveModulePage() {
   const {
     user
   } = useApp();
-
-  if (!user) {
-    return <div>Loading...</div>;
-  }
   const [formData, setFormData] = useState({
     moduleName: '',
     moduleType: '',
@@ -118,7 +114,7 @@ export function LiveModulePage() {
     });
   };
   return <div className="live-module-page">
-      <Sidebar userName={user.name} userEmail={user.email} userImage="/Profile.jpg" />
+      <Sidebar userName={user.name} userEmail={user.email} userImage={user.image} />
       <div className="live-module-main">
         <Header />
         <div className="live-module-content">

@@ -8,7 +8,7 @@
 
 .profile-main {
   flex: 1;
-  margin-left: 280px;
+  margin-left: var(--sidebar-width, 280px);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -388,4 +388,54 @@
     right: 16px;
     left: 16px;
   }
+}
+
+/* Confirmation popup for qualification delete */
+.qual-delete-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+}
+.qual-delete-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px 20px 16px 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  min-width: 320px;
+  max-width: 90vw;
+}
+.qual-delete-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  color: #111827;
+}
+.qual-delete-body {
+  font-size: 14px;
+  color: #374151;
+  margin-bottom: 16px;
+}
+.qual-delete-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+.qual-delete-btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+.qual-delete-btn.confirm {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+.qual-delete-btn.cancel {
+  background: #e6f6ff;
+  color: #0369a1;
 }

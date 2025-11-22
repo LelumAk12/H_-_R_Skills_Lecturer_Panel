@@ -116,77 +116,43 @@ export function AppProvider({
   children: React.ReactNode;
 }) {
   const [courses, setCourses] = useState<Course[]>(() => {
-    if (typeof window === 'undefined') return initialCourses;
-    try {
-      const saved = localStorage.getItem('courses');
-      return saved ? JSON.parse(saved) : initialCourses;
-    } catch {
-      return initialCourses;
-    }
+    const saved = localStorage.getItem('courses');
+    return saved ? JSON.parse(saved) : initialCourses;
   });
   const [notifications, setNotifications] = useState<Notification[]>(() => {
-    if (typeof window === 'undefined') return initialNotifications;
-    try {
-      const saved = localStorage.getItem('notifications');
-      return saved ? JSON.parse(saved) : initialNotifications;
-    } catch {
-      return initialNotifications;
-    }
+    const saved = localStorage.getItem('notifications');
+    return saved ? JSON.parse(saved) : initialNotifications;
   });
   const [user, setUser] = useState<User>(() => {
-    if (typeof window === 'undefined') return initialUser;
+    const saved = localStorage.getItem('user');
+    if (!saved) return initialUser;
     try {
-      const saved = localStorage.getItem('user');
-      return saved ? JSON.parse(saved) : initialUser;
-    } catch {
+      const parsed = JSON.parse(saved);
+      // merge with initialUser to ensure required fields exist (especially qualifications array)
+      return {
+        ...initialUser,
+        ...parsed
+      } as User;
+    } catch (e) {
       return initialUser;
     }
   });
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    if (typeof window === 'undefined') return 'light';
-    try {
-      const saved = localStorage.getItem('theme');
-      return (saved as 'light' | 'dark') || 'light';
-    } catch {
-      return 'light';
-    }
+    const saved = localStorage.getItem('theme');
+    return saved as 'light' | 'dark' || 'light';
   });
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem('courses', JSON.stringify(courses));
-      } catch {
-        // localStorage might be unavailable
-      }
-    }
+    localStorage.setItem('courses', JSON.stringify(courses));
   }, [courses]);
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem('notifications', JSON.stringify(notifications));
-      } catch {
-        // localStorage might be unavailable
-      }
-    }
+    localStorage.setItem('notifications', JSON.stringify(notifications));
   }, [notifications]);
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem('user', JSON.stringify(user));
-      } catch {
-        // localStorage might be unavailable
-      }
-    }
+    localStorage.setItem('user', JSON.stringify(user));
   }, [user]);
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem('theme', theme);
-        document.documentElement.setAttribute('data-theme', theme);
-      } catch {
-        // localStorage might be unavailable
-      }
-    }
+    localStorage.setItem('theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
   const addCourse = (course: Omit<Course, 'id'>) => {
     const newCourse = {
@@ -217,30 +183,33 @@ export function AppProvider({
   };
   const unreadCount = notifications.filter(n => !n.read).length;
   const updateUser = (updatedUser: Partial<User>) => {
-    setUser({
-      ...user,
+    setUser(prev => ({
+      ...prev,
       ...updatedUser
-    });
+    }));
   };
   const addQualification = (qualification: Qualification) => {
-    setUser({
-      ...user,
-      qualifications: [...user.qualifications, qualification]
-    });
+    setUser(prev => ({
+      ...prev,
+      qualifications: [...(Array.isArray(prev.qualifications) ? prev.qualifications : []), qualification]
+    }));
   };
   const updateQualification = (index: number, qualification: Qualification) => {
-    const updatedQualifications = [...user.qualifications];
-    updatedQualifications[index] = qualification;
-    setUser({
-      ...user,
-      qualifications: updatedQualifications
+    setUser(prev => {
+      const prevQuals = Array.isArray(prev.qualifications) ? prev.qualifications : [];
+      const updatedQualifications = [...prevQuals];
+      updatedQualifications[index] = qualification;
+      return {
+        ...prev,
+        qualifications: updatedQualifications
+      } as User;
     });
   };
   const deleteQualification = (index: number) => {
-    setUser({
-      ...user,
-      qualifications: user.qualifications.filter((_, i) => i !== index)
-    });
+    setUser(prev => ({
+      ...prev,
+      qualifications: (Array.isArray(prev.qualifications) ? prev.qualifications : []).filter((_, i) => i !== index)
+    } as User));
   };
   const toggleTheme = () => {
     setTheme(prev => prev === 'light' ? 'dark' : 'light');

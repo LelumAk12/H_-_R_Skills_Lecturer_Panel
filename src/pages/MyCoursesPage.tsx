@@ -14,10 +14,6 @@ export function MyCoursesPage() {
     deleteCourse,
     user
   } = useApp();
-
-  if (!user || !courses) {
-    return <div>Loading courses...</div>;
-  }
   const handleEdit = (id: string, data: {
     name: string;
     category: string;
@@ -29,7 +25,7 @@ export function MyCoursesPage() {
     deleteCourse(id);
   };
   return <div className="my-courses-page">
-      <Sidebar userName={user.name} userEmail={user.email} userImage="/Profile.jpg" />
+      <Sidebar userName={user.name} userEmail={user.email} userImage={user.image} />
 
       <div className="my-courses-main">
         <Header />
