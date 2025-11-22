@@ -1,3 +1,83 @@
+/* Delete Course Popup Styles */
+.course-delete-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+}
+.course-delete-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 28px 32px 24px 32px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  min-width: 320px;
+  max-width: 90vw;
+  text-align: center;
+}
+.course-delete-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  color: #111827;
+}
+.course-delete-body {
+  font-size: 15px;
+  color: #374151;
+  margin-bottom: 20px;
+}
+.course-delete-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 10px;
+}
+.course-delete-btn {
+  padding: 10px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.course-delete-btn.confirm {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+.course-delete-btn.confirm:hover {
+  background: #fca5a5;
+  color: #991b1b;
+  box-shadow: 0 2px 8px rgba(220,38,38,0.12);
+}
+.course-delete-btn.cancel {
+  background: #e6f6ff;
+  color: #0369a1;
+}
+.course-delete-btn.cancel:hover {
+  background: #bae6fd;
+  color: #075985;
+  box-shadow: 0 2px 8px rgba(59,130,246,0.12);
+}
+@media (max-width: 500px) {
+  .course-delete-card {
+    padding: 18px 8px 16px 8px;
+    min-width: 0;
+    max-width: 98vw;
+  }
+  .course-delete-title {
+    font-size: 17px;
+  }
+  .course-delete-body {
+    font-size: 13px;
+  }
+  .course-delete-btn {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+}
 
 .my-courses-page {
   display: flex;
