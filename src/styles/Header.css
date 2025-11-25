@@ -107,6 +107,26 @@
   z-index: 20;
 }
 
+.header-search-results-footer {
+  padding: 8px 12px;
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid var(--border-primary);
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.02) 100%);
+}
+.header-search-viewall {
+  background: none;
+  border: 1px solid var(--border-primary);
+  color: var(--text-primary);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.header-search-viewall:hover {
+  background: var(--bg-tertiary);
+}
+
 .header-search-result-item {
   padding: 12px 16px;
   cursor: pointer;

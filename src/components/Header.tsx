@@ -21,6 +21,19 @@ export function Header() {
       setSearchResults([]);
     }
   };
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && searchQuery.trim()) {
+      setIsSearchOpen(false);
+      navigate(`/lecturer/courses?search=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery('');
+      setSearchResults([]);
+    }
+    if (e.key === 'Escape') {
+      setIsSearchOpen(false);
+      setSearchQuery('');
+      setSearchResults([]);
+    }
+  };
   const handleSearchResultClick = (courseId: string) => {
     setIsSearchOpen(false);
     setSearchQuery('');
@@ -46,7 +59,7 @@ export function Header() {
 
       <div className="header-actions">
         {isSearchOpen && <div className="header-search-wrapper">
-            <input type="text" placeholder="Search courses..." value={searchQuery} onChange={e => handleSearch(e.target.value)} className="header-search-input" autoFocus />
+            <input type="text" placeholder="Search courses..." value={searchQuery} onChange={e => handleSearch(e.target.value)} onKeyDown={handleKeyDown} className="header-search-input" autoFocus />
             {searchResults.length > 0 && <div className="header-search-results">
                 {searchResults.map(course => <div key={course.id} onClick={() => handleSearchResultClick(course.id)} className="header-search-result-item">
                     <div className="header-search-result-name">
@@ -56,6 +69,15 @@ export function Header() {
                       {course.type}
                     </div>
                   </div>)}
+                <div className="header-search-results-footer">
+                  <button className="header-search-viewall" onClick={() => {
+                    if (!searchQuery.trim()) return;
+                    setIsSearchOpen(false);
+                    navigate(`/lecturer/courses?search=${encodeURIComponent(searchQuery.trim())}`);
+                    setSearchQuery('');
+                    setSearchResults([]);
+                  }}>View all results</button>
+                </div>
               </div>}
             <button onClick={() => setIsSearchOpen(false)} className="header-search-close">
               <XIcon className="header-icon" />

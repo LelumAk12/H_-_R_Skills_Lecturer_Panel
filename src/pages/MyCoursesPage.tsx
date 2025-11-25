@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { PlusIcon } from 'lucide-react';
 import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
@@ -12,8 +12,13 @@ export function MyCoursesPage() {
     courses,
     updateCourse,
     deleteCourse,
-    user
+    user,
+    searchCourses
   } = useApp();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const searchQuery = params.get('search') || '';
+  const displayedCourses = searchQuery ? searchCourses(searchQuery) : courses;
   const handleEdit = (id: string, data: {
     name: string;
     category: string;
@@ -39,7 +44,7 @@ export function MyCoursesPage() {
           <h1 className="my-courses-title">My Courses</h1>
 
           <div className="courses-list">
-            {courses.map(course => <CourseCard key={course.id} courseId={course.id} courseName={course.name} courseType={course.type} courseCategory={course.category} courseDescription={course.description} onEdit={handleEdit} onDelete={requestDelete} />)}
+            {displayedCourses.map(course => <CourseCard key={course.id} courseId={course.id} courseName={course.name} courseType={course.type} courseCategory={course.category} courseDescription={course.description} onEdit={handleEdit} onDelete={requestDelete} />)}
           </div>
 
           <button onClick={() => navigate('/lecturer/add-course')} className="add-course-btn">
