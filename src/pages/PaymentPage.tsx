@@ -4,6 +4,7 @@ import { Sidebar } from '../components/Sidebar';
 import { ChevronDownIcon } from 'lucide-react';
 import '../styles/PaymentPage.css';
 import { useApp } from '../context/AppContext';
+import { toast } from 'sonner';
 export function PaymentPage() {
     const { user } = useApp();
   const [activeTab, setActiveTab] = useState<'local' | 'international'>('local');
@@ -25,6 +26,11 @@ export function PaymentPage() {
     amount: '',
     remarks: ''
   });
+  const [localErrors, setLocalErrors] = useState<Partial<Record<string,string>>>({});
+  const [intlErrors, setIntlErrors] = useState<Partial<Record<string,string>>>({});
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [confirmData, setConfirmData] = useState<any>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleLocalChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setLocalForm({
@@ -73,7 +79,50 @@ export function PaymentPage() {
   };
   const handleWithdrawal = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Withdrawal requested');
+    if (activeTab === 'local') {
+      const errs: Partial<Record<string,string>> = {};
+      if (!localForm.holderName.trim()) errs.holderName = 'Holder name is required';
+      if (!localForm.accountNumber.trim()) errs.accountNumber = 'Account number is required';
+      if (!localForm.bankName.trim()) errs.bankName = 'Bank name is required';
+      if (!localForm.amount || Number(localForm.amount) <= 0) errs.amount = 'Enter a valid amount';
+      setLocalErrors(errs);
+      if (Object.keys(errs).length > 0) return;
+      setConfirmData({ type: 'local', ...localForm });
+      setConfirmOpen(true);
+    } else {
+      const errs: Partial<Record<string,string>> = {};
+      if (!internationalForm.holderName.trim()) errs.holderName = 'Holder name is required';
+      if (!internationalForm.bankName.trim()) errs.bankName = 'Bank name is required';
+      if (!internationalForm.accountNumber.trim()) errs.accountNumber = 'Account number is required';
+      if (!internationalForm.swiftCode.trim()) errs.swiftCode = 'SWIFT code is required';
+      if (!internationalForm.currency.trim()) errs.currency = 'Select a currency';
+      if (!internationalForm.amount || Number(internationalForm.amount) <= 0) errs.amount = 'Enter a valid amount';
+      setIntlErrors(errs);
+      if (Object.keys(errs).length > 0) return;
+      setConfirmData({ type: 'international', ...internationalForm });
+      setConfirmOpen(true);
+    }
+  };
+
+  const confirmWithdrawal = async () => {
+    if (!confirmData) return;
+    setIsSubmitting(true);
+    // simulate request
+    await new Promise(res => setTimeout(res, 900));
+    toast.success('Withdrawal request submitted');
+    setIsSubmitting(false);
+    setConfirmOpen(false);
+    setConfirmData(null);
+    // reset forms
+    setLocalForm({ holderName: '', accountNumber: '', bankName: '', branchName: '', amount: '', remarks: '' });
+    setInternationalForm({ holderName: '', bankName: '', branchName: '', accountNumber: '', swiftCode: '', currency: '', amount: '', remarks: '' });
+    setLocalErrors({});
+    setIntlErrors({});
+  };
+
+  const cancelWithdrawal = () => {
+    setConfirmOpen(false);
+    setConfirmData(null);
   };
   return <div className="payment-page">
       <Sidebar userName={user.name} userEmail={user.email} userImage={user.image} />
@@ -115,17 +164,20 @@ export function PaymentPage() {
             {activeTab === 'local' ? <form onSubmit={handleWithdrawal} className="payment-form">
                 <div className="payment-form-group">
                   <label className="payment-label">Bank Holder Name</label>
-                  <input type="text" name="holderName" placeholder="Enter Name" value={localForm.holderName} onChange={handleLocalChange} className="payment-input" />
+                  <input type="text" name="holderName" placeholder="Enter Name" value={localForm.holderName} onChange={handleLocalChange} className={`payment-input ${localErrors.holderName ? 'input-error' : ''}`} />
+                  {localErrors.holderName && <div className="field-error">{localErrors.holderName}</div>}
                 </div>
 
                 <div className="payment-form-group">
                   <label className="payment-label">Account Number</label>
-                  <input type="text" inputMode="numeric" name="accountNumber" placeholder="**************" value={localForm.accountNumber} onChange={handleLocalNumeric} className="payment-input" />
+                  <input type="text" inputMode="numeric" name="accountNumber" placeholder="**************" value={localForm.accountNumber} onChange={handleLocalNumeric} className={`payment-input ${localErrors.accountNumber ? 'input-error' : ''}`} />
+                  {localErrors.accountNumber && <div className="field-error">{localErrors.accountNumber}</div>}
                 </div>
 
                 <div className="payment-form-group">
                   <label className="payment-label">Bank Name</label>
-                  <input type="text" name="bankName" placeholder="Bank Name" value={localForm.bankName} onChange={handleLocalChange} className="payment-input" />
+                  <input type="text" name="bankName" placeholder="Bank Name" value={localForm.bankName} onChange={handleLocalChange} className={`payment-input ${localErrors.bankName ? 'input-error' : ''}`} />
+                  {localErrors.bankName && <div className="field-error">{localErrors.bankName}</div>}
                 </div>
 
                 <div className="payment-form-group">
@@ -135,7 +187,8 @@ export function PaymentPage() {
 
                 <div className="payment-form-group">
                   <label className="payment-label">Enter Amount (LKR)</label>
-                  <input type="text" inputMode="decimal" name="amount" placeholder="LKR 0.00" value={localForm.amount} onChange={handleLocalNumeric} className="payment-input" />
+                  <input type="text" inputMode="decimal" name="amount" placeholder="LKR 0.00" value={localForm.amount} onChange={handleLocalNumeric} className={`payment-input ${localErrors.amount ? 'input-error' : ''}`} />
+                  {localErrors.amount && <div className="field-error">{localErrors.amount}</div>}
                 </div>
 
                 <div className="payment-form-group">
@@ -156,7 +209,8 @@ export function PaymentPage() {
 
                 <div className="payment-form-group">
                   <label className="payment-label">Bank Name</label>
-                  <input type="text" name="bankName" placeholder="Bank Name" value={internationalForm.bankName} onChange={handleInternationalChange} className="payment-input" />
+                  <input type="text" name="bankName" placeholder="Bank Name" value={internationalForm.bankName} onChange={handleInternationalChange} className={`payment-input ${intlErrors.bankName ? 'input-error' : ''}`} />
+                  {intlErrors.bankName && <div className="field-error">{intlErrors.bankName}</div>}
                 </div>
 
                 <div className="payment-form-group">
@@ -166,18 +220,20 @@ export function PaymentPage() {
 
                 <div className="payment-form-group">
                   <label className="payment-label">Account Number</label>
-                  <input type="text" inputMode="numeric" name="accountNumber" placeholder="**************" value={internationalForm.accountNumber} onChange={handleInternationalNumeric} className="payment-input" />
+                  <input type="text" inputMode="numeric" name="accountNumber" placeholder="**************" value={internationalForm.accountNumber} onChange={handleInternationalNumeric} className={`payment-input ${intlErrors.accountNumber ? 'input-error' : ''}`} />
+                  {intlErrors.accountNumber && <div className="field-error">{intlErrors.accountNumber}</div>}
                 </div>
 
                 <div className="payment-form-group">
                   <label className="payment-label">SWIFT Code</label>
-                  <input type="text" inputMode="text" name="swiftCode" placeholder="**********" value={internationalForm.swiftCode} onChange={handleInternationalNumeric} className="payment-input" />
+                  <input type="text" inputMode="text" name="swiftCode" placeholder="**********" value={internationalForm.swiftCode} onChange={handleInternationalNumeric} className={`payment-input ${intlErrors.swiftCode ? 'input-error' : ''}`} />
+                  {intlErrors.swiftCode && <div className="field-error">{intlErrors.swiftCode}</div>}
                 </div>
 
                 <div className="payment-form-group">
                   <label className="payment-label">Currency</label>
                   <div className="payment-select-wrapper">
-                    <select name="currency" value={internationalForm.currency} onChange={handleInternationalChange} className="payment-select">
+                    <select name="currency" value={internationalForm.currency} onChange={handleInternationalChange} className={`payment-select ${intlErrors.currency ? 'input-error' : ''}`}>
                       <option value="">Select Currency</option>
                       <option value="USD">USD - US Dollar</option>
                       <option value="EUR">EUR - Euro</option>
@@ -207,8 +263,33 @@ export function PaymentPage() {
               </form>}
           </div>
         </div>
-
-        
+        {confirmOpen && <div className="modal-overlay">
+            <div className="modal-card">
+              <h3 className="modal-title">Confirm Withdrawal Request</h3>
+              <div className="modal-body">
+                {confirmData?.type === 'local' ? <>
+                  <p><strong>Type:</strong> Local Transfer</p>
+                  <p><strong>Holder:</strong> {confirmData.holderName}</p>
+                  <p><strong>Account:</strong> {confirmData.accountNumber}</p>
+                  <p><strong>Bank:</strong> {confirmData.bankName} {confirmData.branchName ? `- ${confirmData.branchName}` : ''}</p>
+                  <p><strong>Amount:</strong> LKR {confirmData.amount}</p>
+                  {confirmData.remarks && <p><strong>Remarks:</strong> {confirmData.remarks}</p>}
+                </> : <>
+                  <p><strong>Type:</strong> International Transfer</p>
+                  <p><strong>Holder:</strong> {confirmData.holderName}</p>
+                  <p><strong>Account:</strong> {confirmData.accountNumber}</p>
+                  <p><strong>Bank:</strong> {confirmData.bankName} {confirmData.branchName ? `- ${confirmData.branchName}` : ''}</p>
+                  <p><strong>SWIFT:</strong> {confirmData.swiftCode}</p>
+                  <p><strong>Currency:</strong> {confirmData.currency} <strong>Amount:</strong> {confirmData.amount}</p>
+                  {confirmData.remarks && <p><strong>Remarks:</strong> {confirmData.remarks}</p>}
+                </>}
+              </div>
+              <div className="modal-actions">
+                <button className="modal-btn cancel" onClick={cancelWithdrawal}>Cancel</button>
+                <button className="modal-btn confirm" onClick={confirmWithdrawal} disabled={isSubmitting}>{isSubmitting ? 'Submitting...' : 'Confirm Request'}</button>
+              </div>
+            </div>
+          </div>}
       </div>
     </div>;
 }

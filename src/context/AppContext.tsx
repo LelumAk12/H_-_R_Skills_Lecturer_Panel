@@ -43,6 +43,7 @@ interface AppContextType {
   addQualification: (qualification: Qualification) => void;
   updateQualification: (index: number, qualification: Qualification) => void;
   deleteQualification: (index: number) => void;
+  resetUser: () => void;
   theme: 'light' | 'dark';
   toggleTheme: () => void;
 }
@@ -93,8 +94,8 @@ const initialUser: User = {
   email: 'nadeeshaperera@gmail.com',
   image: "/Profile.jpg",
   address: '392/6, Kandy Road, Colombo',
-  contact: '077 456 1***',
-  university: '**** University',
+  contact: '077 456 1111',
+  university: 'University of Colombo',
   primaryCourse: 'Biomedical Science',
   qualifications: [{
     degree: 'BSc in Biomedical Science',
@@ -214,6 +215,9 @@ export function AppProvider({
   const toggleTheme = () => {
     setTheme(prev => prev === 'light' ? 'dark' : 'light');
   };
+  const resetUser = () => {
+    setUser(initialUser);
+  };
   return <AppContext.Provider value={{
     courses,
     addCourse,
@@ -228,6 +232,7 @@ export function AppProvider({
     addQualification,
     updateQualification,
     deleteQualification,
+    resetUser,
     theme,
     toggleTheme
   }}>

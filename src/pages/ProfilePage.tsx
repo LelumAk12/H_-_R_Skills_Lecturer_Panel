@@ -109,6 +109,11 @@ export function ProfilePage() {
     setEditingQualIndex(null);
   };
 
+  // prepare year options (current year down to 1950)
+  const yearOptions: string[] = [];
+  const currentYear = new Date().getFullYear();
+  for (let y = currentYear; y >= 1950; y--) yearOptions.push(String(y));
+
   useEffect(() => {
     setQualifications(user.qualifications || []);
   }, [user.qualifications]);
@@ -221,10 +226,12 @@ export function ProfilePage() {
                 </div>
                 <div className="qualification-form-group">
                   <label className="qualification-label">Year</label>
-                  <input type="text" placeholder="e.g., 2020" value={qualificationForm.year} onChange={e => setQualificationForm({
-                  ...qualificationForm,
+                  <select value={qualificationForm.year} onChange={e => setQualificationForm({ ...qualificationForm,
                   year: e.target.value
-                })} className="qualification-input" />
+                })} className="qualification-input">
+                    <option value="">Select year</option>
+                    {yearOptions.map(y => <option key={y} value={y}>{y}</option>)}
+                  </select>
                 </div>
               </div>
               <div className="qualification-form-actions">
@@ -253,10 +260,12 @@ export function ProfilePage() {
                   </div>
                   <div className="qualification-form-group">
                     <label className="qualification-label">Year</label>
-                    <input type="text" placeholder="e.g., 2020" value={qualificationForm.year} onChange={e => setQualificationForm({
-                    ...qualificationForm,
-                    year: e.target.value
-                  })} className="qualification-input" />
+                      <select value={qualificationForm.year} onChange={e => setQualificationForm({ ...qualificationForm,
+                      year: e.target.value
+                    })} className="qualification-input">
+                        <option value="">Select year</option>
+                        {yearOptions.map(y => <option key={y} value={y}>{y}</option>)}
+                      </select>
                   </div>
                 </div>
                 <div className="qualification-form-actions">

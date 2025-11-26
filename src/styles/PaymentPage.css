@@ -207,3 +207,58 @@
 .payment-btn.withdraw:hover {
   background-color: #0f1a2e;
 }
+
+/* Error styles */
+.input-error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239,68,68,0.06);
+}
+.field-error {
+  color: #b91c1c;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1400;
+}
+.modal-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px 22px;
+  width: 480px;
+  max-width: 95vw;
+  box-shadow: 0 10px 40px rgba(2,6,23,0.2);
+}
+.modal-title {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  color: #0f2a57;
+}
+.modal-body p {
+  margin: 6px 0;
+  color: #374151;
+}
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 14px;
+}
+.modal-btn {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+.modal-btn.cancel { background: #f3f4f6; color: #0f2a57; }
+.modal-btn.confirm { background: #1a2b4a; color: #fff; }
+

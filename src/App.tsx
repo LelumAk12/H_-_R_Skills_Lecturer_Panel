@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { AppProvider } from './context/AppContext';
 import { ScrollToTop } from './components/ScrollToTop';
@@ -6,6 +6,7 @@ import { Footer } from './components/Footer';
 
 // Lecturer Routes
 import { LoginPage as LecturerLoginPage } from './pages/LoginPage';
+import { RegisterPage } from './pages/RegisterPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { MyCoursesPage } from './pages/MyCoursesPage';
 import { AddNewCoursePage } from './pages/AddNewCoursePage';
@@ -17,6 +18,14 @@ import { PaymentPage } from './pages/PaymentPage';
 import { NotificationPage } from './pages/NotificationPage';
 import { SettingsPage } from './pages/SettingsPage';
 export function App() {
+  // ConditionalFooter is rendered based on current location pathname
+  function ConditionalFooter() {
+    const location = useLocation();
+    // hide footer on register page
+    if (location.pathname === '/register') return null;
+    return <Footer />;
+  }
+
   return (
     <BrowserRouter>
       <ScrollToTop />
@@ -29,6 +38,7 @@ export function App() {
 
           {/* Lecturer Routes */}
           <Route path="/lecturer/login" element={<LecturerLoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/lecturer/profile" element={<ProfilePage />} />
           <Route path="/lecturer/courses" element={<MyCoursesPage />} />
           <Route path="/lecturer/add-course" element={<AddNewCoursePage />} />
@@ -42,7 +52,7 @@ export function App() {
         </Routes>
           </div>
         </AppProvider>
-        <Footer />
+        <ConditionalFooter />
       </div>
     </BrowserRouter>
   );

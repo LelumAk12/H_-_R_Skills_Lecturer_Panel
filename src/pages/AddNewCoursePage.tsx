@@ -42,6 +42,23 @@ export function AddNewCoursePage() {
       });
     }
   };
+
+  // Price input handler: allow only digits and optional decimal (max 2 decimals)
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+    // remove any characters except digits and dot
+    value = value.replace(/[^0-9.]/g, '');
+    // avoid multiple dots
+    const parts = value.split('.');
+    if (parts.length > 2) {
+      value = parts[0] + '.' + parts.slice(1).join('');
+    }
+    // limit decimals to 2
+    if (parts[1]) parts[1] = parts[1].slice(0, 2);
+    value = parts[1] ? parts[0] + '.' + parts[1] : parts[0];
+    setFormData({ ...formData, price: value });
+    if (errors.price) setErrors({ ...errors, price: '' });
+  };
   const validateForm = () => {
     const newErrors = {
       category: '',
@@ -140,7 +157,7 @@ export function AddNewCoursePage() {
                 <label className="add-course-label">
                   Price (LKR) <span className="required">*</span>
                 </label>
-                <input type="text" name="price" placeholder="Enter amount" value={formData.price} onChange={handleChange} className={`add-course-input ${errors.price ? 'error' : ''}`} />
+                <input type="text" name="price" placeholder="Enter amount" value={formData.price} onChange={handlePriceChange} inputMode="decimal" className={`add-course-input ${errors.price ? 'error' : ''}`} />
                 {errors.price && <span className="error-message">{errors.price}</span>}
               </div>
               <div className="add-course-actions">

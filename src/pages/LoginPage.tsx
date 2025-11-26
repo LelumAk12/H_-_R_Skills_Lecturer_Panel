@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useApp } from '../context/AppContext';
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import '../styles/LoginPage.css';
 export function LoginPage() {
   const navigate = useNavigate();
+  const { resetUser } = useApp();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
+    // Reset to default initial user data when logging in normally
+    try {
+      resetUser();
+    } catch (e) {
+      console.warn('resetUser not available', e);
+    }
     navigate('/lecturer/profile');
   };
   return <div className="login-page">
@@ -43,7 +51,7 @@ export function LoginPage() {
             </button>
 
             <p className="login-signup">
-              Don't have an account? <a href="#signup">Sign Up</a>
+              Don't have an account? <a href="/register" onClick={(e) => { e.preventDefault(); navigate('/register'); }}>Sign Up</a>
             </p>
           </form>
         </div>
