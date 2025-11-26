@@ -1,17 +1,17 @@
 .qualification-table-wrapper {
   overflow-x: auto;
   border-radius: 8px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-primary);
 }
 
 .qualification-table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #ffffff;
+  background-color: var(--card-bg);
 }
 
 .qualification-table thead {
-  background-color: #f9fafb;
+  background-color: var(--bg-tertiary);
 }
 
 .qualification-table th {
@@ -19,15 +19,15 @@
   text-align: left;
   font-size: 14px;
   font-weight: 600;
-  color: #1a2b4a;
-  border-bottom: 2px solid #e5e7eb;
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--border-primary);
 }
 
 .qualification-table td {
   padding: 16px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border-primary);
   font-size: 14px;
-  color: #6b7280;
+  color: var(--text-secondary);
 }
 
 .qualification-table tbody tr:last-child td {
@@ -40,35 +40,41 @@
 }
 
 .qualification-action-btn {
-  padding: 8px;
-  border: none;
-  border-radius: 6px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: transparent;
 }
 
 .qualification-action-btn.edit {
-  background-color: #dbeafe;
-  color: #1e40af;
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
 }
 
 .qualification-action-btn.edit:hover {
-  background-color: #bfdbfe;
+  background: color-mix(in srgb, var(--accent-primary) 8%, transparent);
+  transform: translateY(-1px);
 }
 
 .qualification-action-btn.delete {
-  background-color: #fee2e2;
-  color: #991b1b;
+  border-color: var(--danger);
+  color: var(--danger);
 }
 
 .qualification-action-btn.delete:hover {
-  background-color: #fecaca;
+  background: color-mix(in srgb, var(--danger) 8%, transparent);
+  transform: translateY(-1px);
 }
 
 .qualification-action-icon {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
+  color: inherit;
 }

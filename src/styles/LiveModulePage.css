@@ -1,7 +1,7 @@
 .live-module-page {
   display: flex;
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: var(--bg-primary);
 }
 
 .live-module-main {
@@ -26,21 +26,21 @@
 .live-module-title {
   font-size: 32px;
   font-weight: 700;
-  color: #1a2b4a;
+  color: var(--text-primary);
   margin: 0 0 8px 0;
 }
 
 .live-module-subtitle {
   font-size: 15px;
-  color: #6b7280;
+  color: var(--text-secondary);
   margin: 0;
 }
 
 .live-module-section {
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   border-radius: 12px;
   padding: 32px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-sm);
 }
 
 .live-module-form {
@@ -63,50 +63,52 @@
 .live-module-label {
   font-size: 14px;
   font-weight: 600;
-  color: #1a2b4a;
+  color: var(--text-primary);
   margin-bottom: 8px;
 }
 
 .required {
-  color: #dc2626;
+  color: var(--danger);
   margin-left: 4px;
 }
 
 .live-module-input {
   padding: 12px 16px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border-primary);
   border-radius: 8px;
   font-size: 15px;
-  color: #1a2b4a;
+  color: var(--text-primary);
+  background-color: var(--input-bg);
   transition: border-color 0.2s;
 }
 
 .live-module-input:focus {
   outline: none;
-  border-color: #1a2b4a;
+  border-color: var(--text-primary);
 }
 
 .live-module-input::placeholder {
-  color: #9ca3af;
+  color: var(--text-tertiary);
 }
 
 .live-module-input.error,
 .live-module-textarea.error {
-  border-color: #dc2626;
+  border-color: var(--danger);
 }
 
 .live-module-input.error:focus,
 .live-module-textarea.error:focus {
-  border-color: #dc2626;
+  border-color: var(--danger);
   box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
 }
 
 .live-module-textarea {
   padding: 12px 16px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border-primary);
   border-radius: 8px;
   font-size: 15px;
-  color: #1a2b4a;
+  color: var(--text-primary);
+  background-color: var(--input-bg);
   font-family: inherit;
   resize: vertical;
   transition: border-color 0.2s;
@@ -114,19 +116,19 @@
 
 .live-module-textarea:focus {
   outline: none;
-  border-color: #1a2b4a;
+  border-color: var(--text-primary);
 }
 
 .live-module-textarea::placeholder {
-  color: #9ca3af;
+  color: var(--text-tertiary);
 }
 
 .live-module-textarea.error {
-  border-color: #dc2626;
+  border-color: var(--danger);
 }
 
 .live-module-textarea.error:focus {
-  border-color: #dc2626;
+  border-color: var(--danger);
   box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
 }
 
@@ -147,27 +149,27 @@
 }
 
 .live-module-btn.cancel {
-  background-color: #ffffff;
-  border: 2px solid #d4a017;
-  color: #d4a017;
+  background-color: var(--card-bg);
+  border: 2px solid var(--accent-secondary);
+  color: var(--accent-secondary);
 }
 
 .live-module-btn.cancel:hover {
-  background-color: #fffbf0;
+  background-color: var(--bg-quaternary);
 }
 
 .live-module-btn.schedule {
-  background-color: #1a2b4a;
-  border: 2px solid #1a2b4a;
-  color: #ffffff;
+  background-color: var(--button-primary);
+  border: 2px solid var(--button-primary);
+  color: var(--button-text);
 }
 
 .live-module-btn.schedule:hover {
-  background-color: #0f1a2e;
+  background-color: var(--accent-hover);
 }
 
 .error-message {
-  color: #dc2626;
+  color: var(--danger);
   font-size: 13px;
   margin-top: 4px;
   display: block;

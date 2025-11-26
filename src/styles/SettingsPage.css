@@ -29,25 +29,16 @@
   color: #1a2b4a;
   margin: 0 0 8px 0;
 }
-
 .settings-subtitle {
   font-size: 15px;
-  color: #6b7280;
+  color: var(--text-secondary);
   margin: 0;
-}
-
-.settings-section {
-  background: var(--bg-secondary);
-  border-radius: 12px;
-  padding: 32px;
-  margin-bottom: 24px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .settings-section-title {
   font-size: 20px;
   font-weight: 600;
-  color: #1a2b4a;
+  color: var(--text-primary);
   margin: 0 0 24px 0;
 }
 
@@ -81,16 +72,17 @@
 
 .settings-input {
   padding: 12px 16px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border-primary);
   border-radius: 8px;
   font-size: 15px;
-  color: #1a2b4a;
-  transition: border-color 0.2s;
+  color: var(--text-primary);
+  background: var(--input-bg);
+  transition: border-color 0.2s, background-color 0.2s;
 }
 
 .settings-input:disabled {
-  background-color: #f3f4f6;
-  color: #6b7280;
+  background-color: var(--bg-quaternary);
+  color: var(--text-tertiary);
   cursor: not-allowed;
 }
 
@@ -100,7 +92,7 @@
 }
 
 .settings-input::placeholder {
-  color: #9ca3af;
+  color: var(--text-tertiary);
 }
 
 .settings-select-wrapper {
@@ -111,14 +103,14 @@
   width: 100%;
   padding: 12px 16px;
   padding-right: 40px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border-primary);
   border-radius: 8px;
   font-size: 15px;
-  color: #1a2b4a;
-  background-color: #ffffff;
+  color: var(--text-primary);
+  background-color: var(--input-bg);
   cursor: pointer;
   appearance: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, background-color 0.2s;
 }
 
 .settings-select:focus {
@@ -144,18 +136,18 @@
 
 .settings-change-password-btn {
   padding: 10px 24px;
-  background-color: #1a2b4a;
+  background-color: var(--button-primary);
   border: none;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--button-text);
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, transform 0.12s;
 }
 
 .settings-change-password-btn:hover {
-  background-color: #0f1a2e;
+  transform: translateY(-2px);
 }
 
 .settings-actions {
@@ -175,42 +167,42 @@
 }
 
 .settings-btn.cancel {
-  background-color: #ffffff;
-  border: 2px solid #d4a017;
-  color: #d4a017;
+  background-color: var(--card-bg);
+  border: 2px solid var(--accent-secondary);
+  color: var(--accent-secondary);
 }
 
 .settings-btn.cancel:hover {
-  background-color: #fffbf0;
+  background-color: rgba(0,0,0,0.02);
 }
 
 .settings-btn.save {
-  background-color: #1a2b4a;
-  border: 2px solid #1a2b4a;
-  color: #ffffff;
+  background-color: var(--button-primary);
+  border: 2px solid var(--button-primary);
+  color: var(--button-text);
 }
 
 .settings-btn.save:hover {
-  background-color: #0f1a2e;
+  transform: translateY(-2px);
 }
 
 .settings-helper-text {
   font-size: 12px;
-  color: #6b7280;
+  color: var(--text-secondary);
   margin-top: 4px;
   display: block;
 }
 
 .settings-divider {
   height: 1px;
-  background-color: #e5e7eb;
+  background-color: var(--border-primary);
   margin: 24px 0;
 }
 
 .settings-subsection-title {
   font-size: 16px;
   font-weight: 600;
-  color: #1a2b4a;
+  color: var(--text-primary);
   margin: 0 0 16px 0;
 }
 
@@ -228,6 +220,29 @@
 
 .settings-input.error {
   border-color: #dc2626;
+}
+
+/* Theme toggle buttons */
+.theme-toggle {
+  display: inline-flex;
+  gap: 8px;
+  background: var(--card-bg);
+  padding: 6px;
+  border-radius: 10px;
+  border: 1px solid var(--border-primary);
+}
+.theme-btn {
+  padding: 8px 14px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.theme-btn.active {
+  background: var(--button-primary);
+  color: var(--button-text);
 }
 
 .settings-input.error:focus {

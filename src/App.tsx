@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { AppProvider } from './context/AppContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { ScrollToTop } from './components/ScrollToTop';
 import { Footer } from './components/Footer';
 
@@ -31,8 +32,9 @@ export function App() {
       <ScrollToTop />
       <Toaster position="top-right" richColors />
       <div className="app-root">
-        <AppProvider>
-          <div className="app-layout">
+        <ThemeProvider>
+          <AppProvider>
+            <div className="app-layout">
             <Routes>
           <Route path="/" element={<Navigate to="/lecturer/login" replace />} />
 
@@ -50,8 +52,9 @@ export function App() {
           <Route path="/lecturer/notification" element={<NotificationPage />} />
           <Route path="/lecturer/settings" element={<SettingsPage />} />
         </Routes>
-          </div>
-        </AppProvider>
+            </div>
+          </AppProvider>
+        </ThemeProvider>
         <ConditionalFooter />
       </div>
     </BrowserRouter>

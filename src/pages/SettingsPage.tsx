@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
-import { ChevronDownIcon } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { useTheme } from '../context/ThemeContext';
 import { toast } from 'sonner';
 import '../styles/SettingsPage.css';
 export function SettingsPage() {
-  const {
-    user,
-    theme,
-    toggleTheme
-  } = useApp();
+  const { user } = useApp();
+  const { theme, setTheme } = useTheme();
   const [formData, setFormData] = useState({
     currentPassword: '',
     newPassword: '',
@@ -126,11 +123,11 @@ export function SettingsPage() {
               <div className="settings-form-group settings-theme">
                 <label className="settings-label">Theme</label>
                 <div className="settings-select-wrapper">
-                  <select value={theme} onChange={toggleTheme} className="settings-select">
+                  <select className="settings-select" value={theme} onChange={(e) => setTheme(e.target.value as 'light' | 'dark')}>
                     <option value="light">Light</option>
                     <option value="dark">Dark</option>
                   </select>
-                  <ChevronDownIcon className="settings-select-icon" />
+                  <span className="settings-select-icon">▾</span>
                 </div>
               </div>
             </div>

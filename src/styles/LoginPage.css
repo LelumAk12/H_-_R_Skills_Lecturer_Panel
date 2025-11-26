@@ -2,7 +2,7 @@
 .login-page {
   width: 100%;
   min-height: 100vh;
-  background-color: #d4a017;
+  background-color: var(--accent-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,7 +10,7 @@
 }
 
 .login-card {
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   border-radius: 16px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   display: grid;
@@ -26,7 +26,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #fafafa;
+  background-color: var(--bg-tertiary);
 }
 
 .login-logo {
@@ -38,7 +38,7 @@
 .login-title {
   font-size: 42px;
   font-weight: 700;
-  color: #1a2b4a;
+  color: var(--text-primary);
   margin: 0 0 8px 0;
   letter-spacing: 2px;
   font-family: serif;
@@ -47,7 +47,7 @@
 .login-subtitle {
   font-size: 28px;
   font-weight: 400;
-  color: #1a2b4a;
+  color: var(--text-primary);
   margin: 0;
   font-family: serif;
 }
@@ -71,27 +71,28 @@
   display: block;
   font-size: 14px;
   font-weight: 600;
-  color: #1a2b4a;
+  color: var(--text-primary);
   margin-bottom: 8px;
 }
 
 .login-input {
   width: 100%;
   padding: 12px 16px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border-primary);
   border-radius: 8px;
   font-size: 15px;
-  color: #1a2b4a;
+  color: var(--text-primary);
+  background-color: var(--input-bg);
   transition: border-color 0.2s;
 }
 
 .login-input:focus {
   outline: none;
-  border-color: #1a2b4a;
+  border-color: var(--text-primary);
 }
 
 .login-input::placeholder {
-  color: #9ca3af;
+  color: var(--text-tertiary);
 }
 
 .login-password-wrapper {
@@ -112,7 +113,7 @@
 .login-icon {
   width: 20px;
   height: 20px;
-  color: #6b7280;
+  color: var(--text-secondary);
 }
 
 .login-forgot {
@@ -122,20 +123,20 @@
 
 .login-forgot a {
   font-size: 14px;
-  color: #4b5563;
+  color: var(--text-secondary);
   text-decoration: none;
   transition: color 0.2s;
 }
 
 .login-forgot a:hover {
-  color: #1a2b4a;
+  color: var(--text-primary);
 }
 
 .login-button {
   width: 100%;
   padding: 14px;
-  background-color: #1a2b4a;
-  color: #ffffff;
+  background-color: var(--button-primary);
+  color: var(--card-bg);
   border: none;
   border-radius: 8px;
   font-size: 16px;
@@ -145,23 +146,23 @@
 }
 
 .login-button:hover {
-  background-color: #0f1a2e;
+  background-color: var(--accent-hover);
 }
 
 .login-signup {
   text-align: center;
   margin-top: 24px;
   font-size: 14px;
-  color: #4b5563;
+  color: var(--text-secondary);
 }
 
 .login-signup a {
-  color: #1a2b4a;
+  color: var(--text-primary);
   font-weight: 600;
   text-decoration: none;
   transition: color 0.2s;
 }
 
 .login-signup a:hover {
-  color: #0f1a2e;
+  color: var(--accent-hover);
 }

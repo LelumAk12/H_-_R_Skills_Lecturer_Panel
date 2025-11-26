@@ -2,7 +2,7 @@
 .register-page {
   width: 100%;
   min-height: 100vh;
-  background-color: #d4a017;
+  background-color: var(--accent-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,7 +10,7 @@
 }
 
 .register-card {
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   border-radius: 12px;
   box-shadow: 0 10px 40px rgba(0,0,0,0.12);
   display: grid;
@@ -21,7 +21,7 @@
 }
 
 .register-left {
-  background: #ffffff;
+  background: var(--card-bg);
   padding: 48px 40px;
   display: flex;
   align-items: center;
@@ -35,7 +35,7 @@
 }
 
 .register-right {
-  background: #f3f4f6;
+  background: var(--bg-quaternary);
   padding: 36px 40px;
   display: flex;
   align-items: center;
@@ -50,7 +50,7 @@
 .register-title {
   font-size: 32px;
   font-weight: 700;
-  color: #0f2a57;
+  color: var(--text-primary);
   margin: 0 0 18px 0;
   text-align: center;
 }
@@ -65,14 +65,14 @@
   padding: 8px 18px;
   border-radius: 8px;
   border: 1px solid rgba(15,42,87,0.08);
-  background: #ffffff;
+  background: var(--card-bg);
   cursor: pointer;
   font-weight: 600;
 }
 .role-btn.active {
-  background: #d4a017;
+  background: var(--accent-secondary);
   color: #fff;
-  border-color: #d4a017;
+  border-color: var(--accent-secondary);
 }
 
 .register-field {
@@ -82,25 +82,26 @@
   display: block;
   font-size: 13px;
   font-weight: 700;
-  color: #0f2a57;
+  color: var(--text-primary);
   margin-bottom: 8px;
 }
 .register-field input {
   width: 100%;
   padding: 10px 14px;
   border-radius: 8px;
-  border: 1px solid #e5e7eb;
-  background: #fff;
+  border: 1px solid var(--border-primary);
+  background-color: var(--input-bg);
+  color: var(--text-primary);
   font-size: 14px;
 }
 
 .input-error {
-  border-color: #ef4444;
+  border-color: var(--danger);
   box-shadow: 0 0 0 3px rgba(239,68,68,0.06);
 }
 
 .field-error {
-  color: #b91c1c;
+  color: var(--danger);
   font-size: 13px;
   margin-top: 6px;
 }
@@ -122,8 +123,8 @@
   width: 100%;
   padding: 14px;
   border-radius: 10px;
-  background: #0f2a57;
-  color: #ffffff;
+  background: var(--button-primary);
+  color: var(--card-bg);
   border: none;
   font-size: 16px;
   font-weight: 700;
@@ -134,10 +135,10 @@
 .register-login {
   text-align: center;
   margin-top: 14px;
-  color: #475569;
+  color: var(--text-secondary);
 }
 .register-login a {
-  color: #0f2a57;
+  color: var(--text-primary);
   font-weight: 700;
   text-decoration: none;
 }

@@ -48,7 +48,7 @@
 }
 
 .header-nav-link.live {
-  color: #dc2626;
+  color: var(--danger);
 }
 
 .header-actions {
@@ -188,8 +188,8 @@
   position: absolute;
   top: 4px;
   right: 4px;
-  background-color: #dc2626;
-  color: #ffffff;
+  background-color: var(--danger);
+  color: var(--danger-text);
   font-size: 10px;
   font-weight: 600;
   padding: 2px 6px;

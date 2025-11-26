@@ -44,8 +44,6 @@ interface AppContextType {
   updateQualification: (index: number, qualification: Qualification) => void;
   deleteQualification: (index: number) => void;
   resetUser: () => void;
-  theme: 'light' | 'dark';
-  toggleTheme: () => void;
 }
 const AppContext = createContext<AppContextType | undefined>(undefined);
 const initialCourses: Course[] = [{
@@ -138,10 +136,6 @@ export function AppProvider({
       return initialUser;
     }
   });
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    const saved = localStorage.getItem('theme');
-    return saved as 'light' | 'dark' || 'light';
-  });
   useEffect(() => {
     localStorage.setItem('courses', JSON.stringify(courses));
   }, [courses]);
@@ -151,10 +145,6 @@ export function AppProvider({
   useEffect(() => {
     localStorage.setItem('user', JSON.stringify(user));
   }, [user]);
-  useEffect(() => {
-    localStorage.setItem('theme', theme);
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
   const addCourse = (course: Omit<Course, 'id'>) => {
     const newCourse = {
       ...course,
@@ -212,9 +202,7 @@ export function AppProvider({
       qualifications: (Array.isArray(prev.qualifications) ? prev.qualifications : []).filter((_, i) => i !== index)
     } as User));
   };
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
-  };
+  
   const resetUser = () => {
     setUser(initialUser);
   };
@@ -232,9 +220,7 @@ export function AppProvider({
     addQualification,
     updateQualification,
     deleteQualification,
-    resetUser,
-    theme,
-    toggleTheme
+    resetUser
   }}>
       {children}
     </AppContext.Provider>;

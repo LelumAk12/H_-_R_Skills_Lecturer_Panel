@@ -1,8 +1,8 @@
 .course-card-wrapper {
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-sm);
   transition: box-shadow 0.3s ease;
 }
 
@@ -11,8 +11,8 @@
 }
 
 .course-card {
-  background-color: #ffffff;
-  border: 1px solid #e5e7eb;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-primary);
   border-radius: 12px;
   padding: 24px;
   display: flex;
@@ -22,7 +22,7 @@
 }
 
 .course-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-md);
 }
 
 .course-card-content {
@@ -34,7 +34,7 @@
 .course-card-icon {
   width: 56px;
   height: 56px;
-  background-color: #f3f4f6;
+  background-color: var(--bg-quaternary);
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -44,7 +44,7 @@
 .course-icon {
   width: 28px;
   height: 28px;
-  color: #1a2b4a;
+  color: var(--accent-primary);
 }
 
 .course-card-info {
@@ -56,13 +56,13 @@
 .course-name {
   font-size: 18px;
   font-weight: 600;
-  color: #1a2b4a;
+  color: var(--text-primary);
   margin: 0;
 }
 
 .course-type {
   font-size: 14px;
-  color: #6b7280;
+  color: var(--text-secondary);
   margin: 0;
 }
 
@@ -81,15 +81,15 @@
 }
 
 .course-action-btn:hover {
-  background-color: #f3f4f6;
+  background-color: var(--bg-tertiary);
 }
 
 .course-action-btn.edit {
-  color: #1a2b4a;
+  color: var(--accent-primary);
 }
 
 .course-action-btn.delete {
-  color: #dc2626;
+  color: var(--danger);
 }
 
 .course-action-icon {
@@ -98,8 +98,8 @@
 }
 
 .course-edit-form {
-  background-color: #ffffff;
-  border: 1px solid #e5e7eb;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-primary);
   border-top: none;
   border-radius: 0 0 12px 12px;
   padding: 24px;
@@ -122,34 +122,36 @@
 .course-edit-label {
   font-size: 14px;
   font-weight: 600;
-  color: #1a2b4a;
+  color: var(--text-primary);
   margin-bottom: 8px;
 }
 
 .course-edit-input {
   padding: 12px 16px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border-primary);
   border-radius: 8px;
   font-size: 15px;
-  color: #1a2b4a;
+  color: var(--text-primary);
+  background-color: var(--input-bg);
   transition: border-color 0.2s;
 }
 
 .course-edit-input:focus {
   outline: none;
-  border-color: #1a2b4a;
+  border-color: var(--accent-primary);
 }
 
 .course-edit-input::placeholder {
-  color: #9ca3af;
+  color: var(--text-tertiary);
 }
 
 .course-edit-textarea {
   padding: 12px 16px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border-primary);
   border-radius: 8px;
   font-size: 15px;
-  color: #1a2b4a;
+  color: var(--text-primary);
+  background-color: var(--input-bg);
   font-family: inherit;
   resize: vertical;
   transition: border-color 0.2s;
@@ -157,11 +159,11 @@
 
 .course-edit-textarea:focus {
   outline: none;
-  border-color: #1a2b4a;
+  border-color: var(--accent-primary);
 }
 
 .course-edit-textarea::placeholder {
-  color: #9ca3af;
+  color: var(--text-tertiary);
 }
 
 .course-edit-actions {
@@ -171,16 +173,16 @@
 
 .course-save-btn {
   padding: 12px 32px;
-  background-color: #1a2b4a;
+  background-color: var(--button-primary);
   border: none;
   border-radius: 8px;
   font-size: 15px;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--button-text);
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
 .course-save-btn:hover {
-  background-color: #0f1a2e;
+  transform: translateY(-2px);
 }

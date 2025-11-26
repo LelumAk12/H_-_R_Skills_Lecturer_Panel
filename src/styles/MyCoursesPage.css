@@ -9,10 +9,10 @@
   z-index: 1200;
 }
 .course-delete-card {
-  background: #fff;
+  background: var(--card-bg);
   border-radius: 12px;
   padding: 28px 32px 24px 32px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  box-shadow: var(--shadow-lg);
   min-width: 320px;
   max-width: 90vw;
   text-align: center;
@@ -21,11 +21,11 @@
   font-size: 20px;
   font-weight: 700;
   margin: 0 0 12px 0;
-  color: #111827;
+  color: var(--text-primary);
 }
 .course-delete-body {
   font-size: 15px;
-  color: #374151;
+  color: var(--text-secondary);
   margin-bottom: 20px;
 }
 .course-delete-actions {
@@ -44,21 +44,21 @@
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
 }
 .course-delete-btn.confirm {
-  background: #fee2e2;
-  color: #b91c1c;
+  background: var(--status-rejected);
+  color: var(--status-rejected-text);
 }
 .course-delete-btn.confirm:hover {
-  background: #fca5a5;
-  color: #991b1b;
+  background: color-mix(in srgb, var(--status-rejected) 80%, transparent);
+  color: var(--status-rejected-text);
   box-shadow: 0 2px 8px rgba(220,38,38,0.12);
 }
 .course-delete-btn.cancel {
-  background: #e6f6ff;
-  color: #0369a1;
+  background: var(--status-pending);
+  color: var(--status-pending-text);
 }
 .course-delete-btn.cancel:hover {
-  background: #bae6fd;
-  color: #075985;
+  background: color-mix(in srgb, var(--status-pending) 80%, transparent);
+  color: var(--status-pending-text);
   box-shadow: 0 2px 8px rgba(59,130,246,0.12);
 }
 @media (max-width: 500px) {
@@ -103,7 +103,7 @@
 .my-courses-title {
   font-size: 32px;
   font-weight: 700;
-  color: #1a2b4a;
+  color: var(--text-primary);
   margin: 0 0 32px 0;
 }
 
@@ -119,28 +119,12 @@
   align-items: center;
   gap: 8px;
   padding: 14px 28px;
-  background-color: #1a2b4a;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #ffffff;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  margin-left: auto;
-}
-
-.add-course-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 28px;
   background: var(--accent-primary);
   border: none;
   border-radius: 8px;
   font-size: 16px;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--button-text);
   cursor: pointer;
   transition: background 0.2s;
   margin-left: auto;
@@ -150,10 +134,10 @@
 }
 
 .course-delete-card {
-  background: var(--bg-secondary);
+  background: var(--card-bg);
   border-radius: 12px;
   padding: 20px 24px;
-  box-shadow: 0 12px 36px rgba(0,0,0,0.22);
+  box-shadow: var(--shadow-lg);
   min-width: 320px;
   max-width: 90vw;
 }
@@ -161,10 +145,11 @@
   font-size: 18px;
   font-weight: 700;
   margin: 0 0 8px 0;
+  color: var(--text-primary);
 }
 .course-delete-body {
   font-size: 14px;
-  color: #374151;
+  color: var(--text-secondary);
   margin-bottom: 16px;
 }
 .course-delete-actions {
@@ -180,10 +165,10 @@
   font-weight: 600;
 }
 .course-delete-btn.confirm {
-  background: #fee2e2;
-  color: #b91c1c;
+  background: var(--status-rejected);
+  color: var(--status-rejected-text);
 }
 .course-delete-btn.cancel {
-  background: #e6f6ff;
-  color: #0369a1;
+  background: var(--status-pending);
+  color: var(--status-pending-text);
 }

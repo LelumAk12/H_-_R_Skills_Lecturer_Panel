@@ -5,6 +5,13 @@
   margin-top: auto;
   animation: fadeIn 0.5s ease-out;
 }
+.footer {
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
+  padding: 32px 24px 12px;
+  margin-top: auto;
+  animation: fadeIn 0.5s ease-out;
+}
 
 /* ensure footer background spans full viewport width when rendered after content */
 .footer {
@@ -55,10 +62,22 @@
   margin: 0;
   letter-spacing: 1px;
 }
+.footer-brand-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--footer-text);
+  margin: 0;
+  letter-spacing: 1px;
+}
 
 .footer-brand-tagline {
   font-size: 14px;
   color: #d1d5db;
+  margin: 4px 0 0 0;
+}
+.footer-brand-tagline {
+  font-size: 14px;
+  color: var(--text-secondary);
   margin: 4px 0 0 0;
 }
 
@@ -75,11 +94,23 @@
   border-radius: 8px;
   transition: all 0.3s ease;
 }
+.footer-social-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(0,0,0,0.06);
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
 
 .footer-social-btn:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: translateY(-3px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.footer-social-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
 }
 
 .footer-social-icon {
@@ -94,6 +125,13 @@
   margin: 0 0 16px 0;
   letter-spacing: 0.5px;
   color: #ffffff;
+}
+.footer-heading {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  letter-spacing: 0.5px;
+  color: var(--footer-text);
 }
 
 .footer-links {
@@ -116,9 +154,24 @@
   text-align: left;
   padding: 4px 0;
 }
+.footer-links button {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-align: left;
+  padding: 4px 0;
+}
 
 .footer-links button:hover {
   color: #ffffff;
+  transform: translateX(5px);
+}
+.footer-links button:hover {
+  color: var(--footer-text);
   transform: translateX(5px);
 }
 
@@ -126,6 +179,11 @@
   font-size: 14px;
   line-height: 1.8;
   color: #d1d5db;
+}
+.footer-contact {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-secondary);
 }
 
 .footer-contact p {
@@ -142,6 +200,13 @@
   border-top: 1px solid #374151;
   font-size: 0.9rem;
   color: #9ca3af;
+}
+.footer-bottom {
+  text-align: center;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-primary);
+  font-size: 0.9rem;
+  color: var(--text-tertiary);
 }
 
 .footer-link {
