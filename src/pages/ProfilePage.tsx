@@ -27,6 +27,7 @@ export function ProfilePage() {
     institution: '',
     year: ''
   });
+  const [contactError, setContactError] = useState('');
   const [qualifications, setQualifications] = useState(user.qualifications || []);
   const [deleteQualIndex, setDeleteQualIndex] = useState<number | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -43,11 +44,41 @@ export function ProfilePage() {
     });
   };
   const handleContactChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const digits = e.target.value.replace(/\D/g, '');
-    setProfileData({
-      ...profileData,
-      contact: digits
-    });
+    let val = e.target.value;
+
+    // If user starts with a plus sign: treat as international input
+    if (val.startsWith('+')) {
+      // keep only + and digits
+      val = '+' + val.slice(1).replace(/\D/g, '');
+
+      // Enforce +94 specific rule: +94 followed by 9 digits -> total length 12
+      if (val.startsWith('+94')) {
+        if (val.length > 12) val = val.slice(0, 12);
+        setContactError(val.length > 0 && val.length < 12 ? 'International format: +94 followed by 9 digits (total 12 chars)' : '');
+      } else {
+        // For other international formats, allow up to 15 chars (rough max)
+        if (val.length > 15) val = val.slice(0, 15);
+        setContactError('');
+      }
+
+      setProfileData({ ...profileData, contact: val });
+      return;
+    }
+
+    // Non-international: keep digits only
+    val = val.replace(/\D/g, '');
+
+    // If starts with 0 enforce 10 digits total
+    if (val.startsWith('0')) {
+      if (val.length > 10) val = val.slice(0, 10);
+      setContactError(val.length > 0 && val.length < 10 ? 'Local format: start with 0 and use 10 digits total' : '');
+    } else {
+      // For other local entries, cap to 10 digits
+      if (val.length > 10) val = val.slice(0, 10);
+      setContactError('');
+    }
+
+    setProfileData({ ...profileData, contact: val });
   };
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -182,6 +213,7 @@ export function ProfilePage() {
                   <div className="profile-form-group">
                       <label className="profile-label">Contact No</label>
                       <input type="tel" inputMode="numeric" pattern="[0-9]*" name="contact" value={profileData.contact} onChange={handleContactChange} className="profile-input" placeholder="Enter your contact number" />
+                      {contactError && <div className="field-error">{contactError}</div>}
                     </div>
                 </div>
 
