@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
 import { QualificationTable } from '../components/QualificationTable';
@@ -43,6 +43,7 @@ export function ProfilePage() {
       [e.target.name]: e.target.value
     });
   };
+  const contactRef = useRef<HTMLInputElement | null>(null);
   const handleContactChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let val = e.target.value;
 
@@ -91,6 +92,21 @@ export function ProfilePage() {
     }
   };
   const handleSaveProfile = () => {
+    // Validate contact: require at least 10 digits (digits only)
+    const digitsOnly = String(profileData.contact || '').replace(/\D/g, '');
+    if (digitsOnly.length > 0 && digitsOnly.length < 10) {
+      setContactError('Contact number must contain at least 10 digits');
+      // Scroll to and focus the contact input
+      if (contactRef.current) {
+        contactRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        contactRef.current.focus();
+      }
+      return;
+    }
+
+    // Clear any existing contact error
+    setContactError('');
+
     updateUser({
       ...profileData,
       image: profileImage
@@ -212,7 +228,7 @@ export function ProfilePage() {
                   </div>
                   <div className="profile-form-group">
                       <label className="profile-label">Contact No</label>
-                      <input type="tel" inputMode="numeric" pattern="[0-9]*" name="contact" value={profileData.contact} onChange={handleContactChange} className="profile-input" placeholder="Enter your contact number" />
+                      <input ref={contactRef} type="tel" inputMode="numeric" pattern="[0-9]*" name="contact" value={profileData.contact} onChange={handleContactChange} className="profile-input" placeholder="Enter your contact number" />
                       {contactError && <div className="field-error">{contactError}</div>}
                     </div>
                 </div>
