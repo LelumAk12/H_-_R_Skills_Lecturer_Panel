@@ -9,6 +9,41 @@
   padding: 32px;
 }
 
+.login-back-btn {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 50;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.login-back-btn:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--text-primary);
+  transform: translateX(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.login-back-btn:active {
+  transform: translateX(-1px);
+}
+
+.login-back-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--text-primary);
+}
+
 .login-card {
   background-color: var(--card-bg);
   border-radius: 16px;

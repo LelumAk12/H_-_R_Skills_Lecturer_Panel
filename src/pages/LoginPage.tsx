@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
-import { EyeIcon, EyeOffIcon } from 'lucide-react';
+import { EyeIcon, EyeOffIcon, ArrowLeft } from 'lucide-react';
 import '../styles/LoginPage.css';
 export function LoginPage() {
   const navigate = useNavigate();
@@ -48,6 +48,9 @@ export function LoginPage() {
     }, 2500);
   };
   return <div className="login-page">
+      <button className="login-back-btn" onClick={() => navigate(-1)} title="Go back">
+        <ArrowLeft className="login-back-icon" />
+      </button>
       <div className="login-card">
         <div className="login-left">
           <img src="/Login-Logo.png" alt="H & R Skills Logo" className="login-logo" />
