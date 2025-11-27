@@ -166,3 +166,76 @@
 .login-signup a:hover {
   color: var(--accent-hover);
 }
+
+/* Forgot password modal styles */
+.forgot-link {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 60;
+}
+
+.forgot-modal {
+  width: 420px;
+  max-width: calc(100% - 32px);
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 20px 20px 24px 20px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+.forgot-close {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.forgot-error {
+  color: #e03e3e;
+  margin-top: 8px;
+  font-size: 13px;
+}
+
+.forgot-success {
+  color: #0f7a3a;
+  margin-top: 8px;
+  font-size: 13px;
+}
+
+.forgot-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.forgot-cancel {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid transparent;
+  box-shadow: none;
+  padding: 12px 16px;
+}
+
+.forgot-cancel:hover {
+  background: rgba(255,255,255,0.03);
+}
